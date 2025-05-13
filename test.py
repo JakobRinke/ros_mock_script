@@ -1,32 +1,33 @@
 import roslibpy
 import time
+import json
 
-def move_robot():
-    # Verbinde mit dem ROS-Master
-    client = roslibpy.Ros(host='localhost', port=11311)
-    client.run()
+# Verbindung zu ROSBridge auf Port 9091
+client = roslibpy.Ros(host='192.168.149.1', port=9091)
 
-    # Erstelle einen Publisher für das cmd_vel-Topic
-    cmd_vel = roslibpy.Topic(client, '/cmd_vel', 'geometry_msgs/Twist')
+client.run()
 
-    # Erstelle eine Nachricht
-    twist = roslibpy.Message({
-        'linear': {'x': 0.5, 'y': 0.0, 'z': 0.0},
-        'angular': {'x': 0.0, 'y': 0.0, 'z': 0.0}
-    })
+def message_callback(msg):
+    print(msg.keys())
+    print(f"Received message: {msg['pose']['position']}")
 
-    # Sende die Nachricht
-    cmd_vel.publish(twist)
-    print("Bewege den Roboter vorwärts.")
 
-    # Stoppe den Roboter nach 2 Sekunden
-    time.sleep(2)
-    twist['linear']['x'] = 0.0
-    cmd_vel.publish(twist)
-    print("Roboter gestoppt.")
+if client.is_connected:
+    print("Connected to ROSBridge!")
 
-    # Schließe die Verbindung
-    client.terminate()
+    # Subscribe to a topic (e.g., '/chatter')
+    subscriber = roslibpy.Topic(client, '/odom_raw', 'nav_msgs/msg/Odometry')
+    
+    subscriber.subscribe(message_callback)
 
-if __name__ == '__main__':
-    move_robot()
+    # Keep the subscriber running
+    try:
+        input("Press Enter to exit...\n")
+    except KeyboardInterrupt:
+        pass
+    finally:
+        subscriber.unsubscribe()
+        client.terminate()
+        print("Disconnected from ROSBridge.")
+else:
+    print("Failed to connect to ROSBridge.")
