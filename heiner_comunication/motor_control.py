@@ -41,6 +41,8 @@ def rotate_to_angle(client:roslibpy.Ros, target_angle:float, speed:float=1, accu
         rot = odometry.orientation.z
         if abs(rot*math.pi - target_angle) < accuracy:
             print("Target angle reached")
+            talker = roslibpy.Topic(client, '/cmd_vel', 'geometry_msgs/Twist')
+            talker.publish(ZERO_MESSAGE)  # Ensure the robot stops completely
             break
         print("Current rotation:", rot)
         if rot*math.pi < target_angle:
@@ -49,21 +51,118 @@ def rotate_to_angle(client:roslibpy.Ros, target_angle:float, speed:float=1, accu
             dr = -1
         rotate(client=client, speed=-speed * dr, timeout=timeout)
 
+def sign(x:float) -> int:
+    if x > 0:
+        return 1
+    elif x < 0:
+        return -1
+    else:
+        return 0
+    
 
-def do_a_rotation_of(client:roslibpy.Ros, angle:float) -> None:
+import math
+import roslibpy
+
+ZERO_MESSAGE = {
+    'linear': {'x': 0.0, 'y': 0.0, 'z': 0.0},
+    'angular': {'x': 0.0, 'y': 0.0, 'z': 0.0}
+}
+
+def sign(x):
+    return 1 if x >= 0 else -1
+
+def normalize_angle(angle):
+    """Normalisiere den Winkel auf den Bereich [-pi, pi]."""
+    return (angle + math.pi) % (2 * math.pi) - math.pi
+
+import math
+import roslibpy
+import time
+
+ZERO_MESSAGE = {
+    'linear': {'x': 0.0, 'y': 0.0, 'z': 0.0},
+    'angular': {'x': 0.0, 'y': 0.0, 'z': 0.0}
+}
+
+def sign(x):
+    """Bestimmt das Vorzeichen eines Wertes."""
+    return 1 if x >= 0 else -1
+
+def normalize_angle(angle):
+    """Normalisiere den Winkel auf den Bereich [-pi, pi]."""
+    return (angle + math.pi) % (2 * math.pi) - math.pi
+
+import math
+import roslibpy
+import time
+
+ZERO_MESSAGE = {
+    'linear': {'x': 0.0, 'y': 0.0, 'z': 0.0},
+    'angular': {'x': 0.0, 'y': 0.0, 'z': 0.0}
+}
+
+def sign(x):
+    """Bestimmt das Vorzeichen eines Wertes."""
+    return 1 if x >= 0 else -1
+
+def normalize_angle(angle):
+    """Normalisiere den Winkel auf den Bereich [-pi, pi]."""
+    return (angle + math.pi) % (2 * math.pi) - math.pi
+
+
+
+## THIS FUNCTION DOES NOT WORK.
+def do_a_rotation_of(client: roslibpy.Ros, angle: float) -> None:
+    # Umrechnung der Eingabewinkel in den Bereich [-pi, pi]
+    target_angle = normalize_angle(angle)
+
+    speed = 0.6  # Rotationsgeschwindigkeit
+    
+    # Holen der Odometriedaten
     odometry = heiner_comunication.odometry.get_odometry_data_once(client=client)
-    start_angle = odometry.orientation.z  # Assume orientation.z is already in radians
-    target_angle = start_angle + math.radians(angle)  # Calculate target angle in radians
-    speed = 1
-    time_interval = 0.1
-    angle_diff = angle  # Initial angle difference
+    start_angle = odometry.orientation.z * math.pi  # Wenn die Odometrie den Winkel im Bereich [-1, 1] gibt
+    
+    # Normalisieren des Startwinkels
+    start_angle = normalize_angle(start_angle)
 
-    for i in range(300):
-        rotate(client=client, speed=speed if angle_diff > 0 else -speed, timeout=time_interval)
+    talker = roslibpy.Topic(client, '/cmd_vel', 'geometry_msgs/Twist')
+    
+    # Berechnung des Zielwinkels relativ zum Startwinkel
+    target_angle = normalize_angle(start_angle + target_angle)
+    
+    # Berechnung der Differenz zwischen Start- und Zielwinkel
+    angle_diff = target_angle - start_angle
+
+    # Normalisierung der Differenz auf den Bereich [-pi, pi]
+    angle_diff = normalize_angle(angle_diff)
+
+    # Bestimmen der Drehrichtung basierend auf der Differenz
+    direction = sign(angle_diff)
+
+    # Start der Rotation
+    talker.publish({
+        'linear': {'x': 0.0, 'y': 0.0, 'z': 0.0},
+        'angular': {'x': 0.0, 'y': 0.0, 'z': direction * speed}
+    })
+
+    # Rotationsschleife
+    while True:
+        # Holen der aktuellen Odometriedaten
         odometry = heiner_comunication.odometry.get_odometry_data_once(client=client)
-        current_angle = odometry.orientation.z  # Assume orientation.z is in radians
-        angle_diff = (target_angle - current_angle) % (2 * math.pi)  # Normalize to [0, 2*pi)
-        if angle_diff > math.pi:
-            angle_diff -= 2 * math.pi  # Adjust for shortest path in negative direction
-        if abs(angle_diff) < 0.02:
+        current_angle = odometry.orientation.z * math.pi  # Angenommen, orientierung.z gibt den aktuellen Winkel
+
+        # Berechnung der aktuellen Differenz zum Zielwinkel
+        angle_diff = current_angle - target_angle
+
+        # Normalisierung der Differenz auf den Bereich [-pi, pi]
+        angle_diff = normalize_angle(angle_diff)
+
+        # Wenn die Differenz klein genug ist, stoppen wir
+        if abs(angle_diff) < 0.1:
             break
+
+        # Kurze Pause, um CPU-Belastung zu verringern
+        time.sleep(0.1)
+
+    # Stoppen des Roboters nach Erreichen des Zielwinkels
+    talker.publish(ZERO_MESSAGE)

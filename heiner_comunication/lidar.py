@@ -52,6 +52,10 @@ class LidarFrame:
         """
         start_angle = angle - radius / 2
         end_angle = angle + radius / 2
+        if end_angle > 2 * math.pi:
+            end_angle -= 2 * math.pi
+        if end_angle < 0:
+            end_angle += 2 * math.pi
         return self.get_avgr_value_between(start_angle, end_angle)
 
     
