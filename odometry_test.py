@@ -13,15 +13,17 @@ client.run()
 
 
 if client.is_connected:
-    # lidar = get_lidar_data_once(client=client)
-    
-
-    # print(lidar.get_value_around_angle(0, math.pi / 8))
-
-    #move(client=client, x=0.1, y=0)
-    rotate(client=client, speed=4)  
-
-    time.sleep(1)  
+    do_a_rotation_of(client=client, angle=math.pi / 2)  # Drehe um 90 Grad
 
 
+
+
+
+
+
+
+
+    time.sleep(1)  # Warten, um sicherzustellen, dass die Bewegung abgeschlossen ist
     client.terminate()
+
+    
