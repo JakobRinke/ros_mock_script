@@ -24,6 +24,10 @@ if client.is_connected:
     odo = get_odometry_data_once(client=client)
     print(odo)
 
+    reset_odometry(client=client)
+    odo = get_odometry_data_once(client=client)
+    print(odo)
+
     time.sleep(1)  
 
 
