@@ -14,6 +14,9 @@ class LidarFrame:
         for i in range(1, len(self.ranges)):
             if self.ranges[i] is None:
                 self.ranges[i] = self.ranges[i - 1]
+
+        if None in self.ranges:
+            print("Uh Oh :(")
         
 
     def get_avgr_value_between(self, angle_min: float, angle_max: float) -> list:
