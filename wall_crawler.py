@@ -4,164 +4,114 @@ import time
 from heiner_comunication.lidar import LidarFrame, get_lidar_data_once
 from heiner_comunication.motor_control import move, rotate
 
-# Placeholder-Funktionen für den Magnetfeld-Check und Ultraschall (False-Ausgabe)
-def check_for_magnet_field():
+# --- Konfiguration ---
+BASE_SPEED = 0.6
+ROTATE_SPEED = 0.9
+ESCAPE_SPEED = 0.2
+
+WALL_DETECT_THRESHOLD = 0.4
+PREFERRED_RIGHT_DISTANCE = 0.25
+MAX_ANGULAR = 2.0
+
+# --- Platzhalter für Sensorlogik ---
+def check_for_magnet_field() -> bool:
     return False
 
 def ultrasonic_infront_wall() -> bool:
     return False
 
-# --- Konfiguration ---
-BASE_SPEED = 0.6
-FORWARD_SPEED_WHEN_ROTATING = 0.2
+# --- Hilfsfunktionen ---
+def is_dead_end(distances: dict) -> bool:
+    front, left, right = distances['front'], distances['left'], distances['right']
+    print(f"[Dead-End Check] front: {front:.2f}, left: {left:.2f}, right: {right:.2f}")
 
-DETECT_WALL_THRESHOLD = 0.4  # Höher ansetzen, damit Wände früher erkannt werden
-LIDAR_FREE_THRESHOLD = 1.5    # Erkennen von "offenen" Stellen robuster
-PREFERED_RIGHT_DISTANCE = 0.25  # Etwas mehr Abstand für weichere Korrektur
-MAX_ANGULAR = 2.0
-MIN_ANGULAR = 0.3
+    if front > WALL_DETECT_THRESHOLD + 0.15:
+        return False  # vorne frei → kein Dead-End
 
-def lidar_infront_wall(lidar_data: LidarFrame) -> bool:
-    return lidar_data.get_value_around_angle(0, math.pi / 8) < DETECT_WALL_THRESHOLD
-
-def lidar_all_free(lidar_data: LidarFrame) -> bool:
-    visions = [
-        lidar_data.get_value_around_angle(0, math.pi / 8),
-        lidar_data.get_value_around_angle(-math.pi / 4, math.pi / 8),
-        lidar_data.get_value_around_angle(math.pi / 4, math.pi / 8),
-        lidar_data.get_value_around_angle(-math.pi / 2, math.pi / 8),
-        lidar_data.get_value_around_angle(math.pi / 2, math.pi / 8)
-    ]
-    return sum(vision > LIDAR_FREE_THRESHOLD for vision in visions) >= 4
-
-def correct_left_wall_distance(lidar_data: LidarFrame) -> float:
-    left_distance = lidar_data.get_value_around_angle(-math.pi / 2, math.pi / 6)
-    right_distance = lidar_data.get_value_around_angle(math.pi / 2, math.pi / 6)
-    return left_distance - right_distance
-
-def is_there_a_wall_on_the_left(lidar_data: LidarFrame) -> bool:
-    left_distance = lidar_data.get_value_around_angle(-math.pi / 2, math.pi / 5)
-    return left_distance < DETECT_WALL_THRESHOLD
-
-def is_dead_end(lidar_data: LidarFrame) -> bool:
-    front = lidar_data.get_value_around_angle(0, math.pi / 8)
-    left = lidar_data.get_value_around_angle(-math.pi / 2, math.pi / 8)
-    right = lidar_data.get_value_around_angle(math.pi / 2, math.pi / 8)
-    return (
-        front < DETECT_WALL_THRESHOLD + 0.1 and
-        left < DETECT_WALL_THRESHOLD + 0.1 and
-        right < DETECT_WALL_THRESHOLD + 0.1
-    )
-
-def is_narrow_corridor(lidar_data: LidarFrame) -> bool:
-    left = lidar_data.get_value_around_angle(-math.pi / 2, math.pi / 8)
-    right = lidar_data.get_value_around_angle(math.pi / 2, math.pi / 8)
-    return left < 0.4 and right < 0.4
+    blocked_sides = sum(d < WALL_DETECT_THRESHOLD + 0.1 for d in [left, right])
+    return blocked_sides >= 2
 
 
-def is_front_blocked(lidar_data: LidarFrame) -> bool:
-    front_distance = lidar_data.get_value_around_angle(0, math.pi / 8)
-    return front_distance < DETECT_WALL_THRESHOLD
-
-
-def hard_escape_until_clear(client: roslibpy.Ros):
-    print("? HARTE ESCAPE (Dead End Erkennung)")
-    timeout = 0
-    while timeout < 5:
-        lidar_data = get_lidar_data_once(client=client)
-        if not is_front_blocked(lidar_data):
-            print("?? Front wieder frei nach harter Drehung")
-            break
-        rotate(client=client, speed=1, timeout=0.5)
-        move(client=client, x=-FORWARD_SPEED_WHEN_ROTATING, y=0, timeout=0.3)
-        timeout += 0.5
-
-def is_narrow_corridor(lidar_data: LidarFrame) -> bool:
-    left = lidar_data.get_value_around_angle(-math.pi / 2, math.pi / 8)
-    right = lidar_data.get_value_around_angle(math.pi / 2, math.pi / 8)
-    # Erhöhe den Schwellenwert, um nicht sofort einen normalen schmalen Gang als "narrow" zu interpretieren
-    return left < 0.3 and right < 0.3
-
-def go_forward_a_bit_and_keep_right(client: roslibpy.Ros, talker: roslibpy.Topic, lidar_data: LidarFrame, correction_boost=1.0) -> None:
-    side_right = lidar_data.get_value_around_angle(-math.pi / 2, math.pi / 8)
-    diag_right = lidar_data.get_value_around_angle(-math.pi / 3, math.pi / 8)
-    front_right = lidar_data.get_value_around_angle(-math.pi / 6, math.pi / 8)
-
-    error_side = side_right - PREFERED_RIGHT_DISTANCE
-    error_diag = diag_right - (PREFERED_RIGHT_DISTANCE + 0.1)
-    error_front_right = front_right - (PREFERED_RIGHT_DISTANCE + 0.2)
-
-    correction_angular = (error_side * 1.0 + error_diag * 1.5 + error_front_right * 2.5) / 5.0
-    correction_angular *= correction_boost
-    correction_angular = max(-MAX_ANGULAR, min(correction_angular, MAX_ANGULAR))
-
-    forward_speed = BASE_SPEED * (1.0 - min(abs(correction_angular) * 0.5, 0.7))
-    forward_speed = max(0.1, forward_speed)
-
-    cmd = {
-        'linear': {'x': forward_speed, 'y': 0.0, 'z': 0.0},
-        'angular': {'x': 0.0, 'y': 0.0, 'z': -correction_angular}
+def get_distances(lidar: LidarFrame) -> dict:
+    return {
+        'front': lidar.get_value_around_angle(0, math.pi / 8),
+        'left': lidar.get_value_around_angle(-math.pi / 2, math.pi / 8),
+        'right': lidar.get_value_around_angle(math.pi / 2, math.pi / 8)
     }
 
+def is_narrow_corridor(lidar: LidarFrame) -> bool:
+    left = lidar.get_value_around_angle(-math.pi / 2, math.pi / 8)
+    right = lidar.get_value_around_angle(math.pi / 2, math.pi / 8)
+    return left < 0.4 and right < 0.4
+
+def correct_right_wall(client, talker, lidar, boost=1.0):
+    side = lidar.get_value_around_angle(-math.pi / 2, math.pi / 8)
+    diag = lidar.get_value_around_angle(-math.pi / 3, math.pi / 8)
+    front = lidar.get_value_around_angle(-math.pi / 6, math.pi / 8)
+
+    err_side = side - PREFERRED_RIGHT_DISTANCE
+    err_diag = diag - (PREFERRED_RIGHT_DISTANCE + 0.1)
+    err_front = front - (PREFERRED_RIGHT_DISTANCE + 0.2)
+
+    angular_correction = (err_side + 1.5 * err_diag + 2.5 * err_front) / 5
+    angular_correction = max(-MAX_ANGULAR, min(angular_correction * boost, MAX_ANGULAR))
+
+    linear_speed = max(0.1, BASE_SPEED * (1.0 - min(abs(angular_correction) * 0.5, 0.7)))
+
+    cmd = {
+        'linear': {'x': linear_speed, 'y': 0.0, 'z': 0.0},
+        'angular': {'x': 0.0, 'y': 0.0, 'z': -angular_correction}
+    }
     talker.publish(cmd)
 
+def rotate_left(client, duration=1.0):
+    print("↪️ Drehe nach links (freie linke Seite)")
+    rotate(client=client, speed=ROTATE_SPEED, timeout=duration)
+
+def rotate_in_place(client):
+    print("? ESCAPE: Nur Drehen (kein Rückwärtsfahren)")
+    rotate(client=client, speed=ROTATE_SPEED, timeout=2)
+
+# --- Hauptlogik ---
 def main(client: roslibpy.Ros):
     talker = roslibpy.Topic(client, '/cmd_vel', 'geometry_msgs/Twist')
-    state = 'CHECK_GOAL'
+    stuck_counter = 0
 
     while True:
-        lidar_data = get_lidar_data_once(client=client)
+        lidar = get_lidar_data_once(client)
+        distances = get_distances(lidar)
 
-        # Check for a magnet field - if there is one, we found the goal
         if check_for_magnet_field():
-            print("Found magnet field, goal reached!")
+            print("🏁 Ziel erreicht! (Magnetfeld erkannt)")
             break
-        
-        if state == 'CHECK_GOAL':
-            if is_dead_end(lidar_data):
-                print("🛑 Dead End erkannt -> HARD_ESCAPE")
-                state = 'HARD_ESCAPE'
-            elif is_front_blocked(lidar_data):
-                print("⚠ Front blockiert -> ESCAPE")
-                state = 'ESCAPE'
-            elif not is_there_a_wall_on_the_left(lidar_data):
-                print("⬅ Kein Wand links -> TURN LEFT")
-                state = 'TURN_LEFT'
-            elif is_narrow_corridor(lidar_data):
-                print("↔ Enger Gang erkannt -> Weichere Korrektur")
-                state = 'FOLLOW_WALL'
+
+        if is_dead_end(distances):
+            stuck_counter += 1
+            if stuck_counter >= 3:
+                print("⚠️ Anti-Stuck: Spezialmanöver bei mehrfachem Steckenbleiben")
+                move(client=client, x=0.3, y=0, timeout=1.0)
+                rotate(client=client, speed=ROTATE_SPEED, timeout=2.0)
+                stuck_counter = 0
             else:
-                state = 'FOLLOW_WALL'
+                print("? HARTE ESCAPE aktiviert (echte Sackgasse)")
+                rotate_in_place(client)
+            continue
 
-        elif state == 'HARD_ESCAPE':
-            hard_escape_until_clear(client=client)
-            state = 'CHECK_GOAL'
+        stuck_counter = 0  # Reset bei normalem Verlauf
 
-        elif state == 'FOLLOW_WALL':
-            if is_dead_end(lidar_data):
-                print("🛑 Dead End erkannt während FOLLOW_WALL -> HARD_ESCAPE")
-                state = 'HARD_ESCAPE'
-            elif is_front_blocked(lidar_data):
-                print("⚠ Front blockiert während FOLLOW_WALL -> ESCAPE")
-                state = 'ESCAPE'
-            elif not is_there_a_wall_on_the_left(lidar_data):
-                print("⬅ Wand verloren während FOLLOW_WALL -> TURN LEFT")
-                state = 'TURN_LEFT'
-            else:
-                # Weiche Korrektur in engen Gängen
-                go_forward_a_bit_and_keep_right(client=client, talker=talker, lidar_data=lidar_data)
+        # ✅ Geradeaus hat Vorrang
+        if distances['front'] > WALL_DETECT_THRESHOLD + 0.1:
+            boost = 2.0 if is_narrow_corridor(lidar) else 1.0
+            correct_right_wall(client, talker, lidar, boost=boost)
+            continue
 
-        elif state == 'ESCAPE':
-            print("🚶‍♂️ Escape Logik -> Rückwärts und drehen")
-            rotate(client=client, speed=1, timeout=2)
-            move(client=client, x=-FORWARD_SPEED_WHEN_ROTATING, y=0, timeout=1)
-            state = 'CHECK_GOAL'
+        # ⬅️ Links frei – abbiegen
+        if distances['left'] > 0.6:
+            rotate_left(client, duration=1.0)
+            continue
 
-        elif state == 'TURN_LEFT':
-            rotate(client=client, speed=0.9, timeout=1)
-            move(client=client, x=FORWARD_SPEED_WHEN_ROTATING, y=0, timeout=0.5)
-            state = 'CHECK_GOAL'
-
+        # ❌ Nichts geht – minimal drehen
+        rotate_in_place(client)
 
 
 import time
@@ -182,5 +132,8 @@ if __name__ == "__main__":
             'angular': {'x': 0.0, 'y': 0.0, 'z': 0.0}
         }
         talker.publish(stop_cmd)
-        time.sleep(1)
+        try:
+            time.sleep(1)
+        except KeyboardInterrupt:
+            pass
         client.terminate()

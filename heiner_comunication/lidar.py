@@ -3,6 +3,7 @@ from heiner_comunication import topic_getter
 import math
 
 class LidarFrame:
+    LIDAR_MAX_VALUE = 12
 
     def __init__(self, data: dict):
         self.data = data
@@ -13,7 +14,7 @@ class LidarFrame:
         # Replace None values with the previous value in the list
         for i in range(1, len(self.ranges)):
             if self.ranges[i] is None:
-                self.ranges[i] = self.ranges[i - 1]
+                self.ranges[i] = 12
         
 
     def get_avgr_value_between(self, angle_min: float, angle_max: float) -> list:
@@ -40,7 +41,7 @@ class LidarFrame:
             end_index = max(0, min(end_index, len(self.ranges) - 1))
             selected_ranges = self.ranges[start_index:end_index]
         # if there are still noneTypes in the selected ranges, replace them with 0
-        selected_ranges = [0 if x is None else x for x in selected_ranges]
+        selected_ranges = [12 if x is None else x for x in selected_ranges]
         return sum(selected_ranges) / len(selected_ranges) if selected_ranges else 0
     
     def get_value_around_angle(self, angle: float, radius:float=math.pi * 2 / 4) -> float:

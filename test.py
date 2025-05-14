@@ -19,7 +19,10 @@ if client.is_connected:
     # print(lidar.get_value_around_angle(0, math.pi / 8))
 
     #move(client=client, x=0.1, y=0)
-    rotate(client=client, speed=4)  
+    #rotate(client=client, speed=4)  
+
+    odo = get_odometry_data_once(client=client)
+    print(odo)
 
     time.sleep(1)  
 
