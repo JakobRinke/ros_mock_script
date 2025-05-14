@@ -39,7 +39,8 @@ class LidarFrame:
             start_index = max(0, min(start_index, len(self.ranges) - 1))
             end_index = max(0, min(end_index, len(self.ranges) - 1))
             selected_ranges = self.ranges[start_index:end_index]
-
+        # if there are still noneTypes in the selected ranges, replace them with 0
+        selected_ranges = [0 if x is None else x for x in selected_ranges]
         return sum(selected_ranges) / len(selected_ranges) if selected_ranges else 0
     
     def get_value_around_angle(self, angle: float, radius:float=math.pi * 2 / 4) -> float:
