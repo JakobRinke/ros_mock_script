@@ -2,21 +2,24 @@ import roslibpy
 from heiner_comunication import topic_getter
 import math
 
+LIDAR_MAX_VALUE = 12
 class LidarFrame:
 
-    def __init__(self, data: dict):
+
+    def __init__(self, data: dict, corrected: bool = False):
         self.data = data
         self.angle_min = data['angle_min']
         self.angle_max = data['angle_max']
         self.angle_increment = data['angle_increment']
         self.ranges = data['ranges']
         # Replace None values with the previous value in the list
+
         for i in range(1, len(self.ranges)):
             if self.ranges[i] is None:
-                self.ranges[i] = self.ranges[i - 1]
-
-        if None in self.ranges:
-            print("Uh Oh :(")
+                if corrected:
+                    self.ranges[i] = self.ranges[i - 1]
+                else:
+                    self.ranges[i] = LIDAR_MAX_VALUE
         
 
     def get_avgr_value_between(self, angle_min: float, angle_max: float) -> list:
@@ -42,7 +45,8 @@ class LidarFrame:
             start_index = max(0, min(start_index, len(self.ranges) - 1))
             end_index = max(0, min(end_index, len(self.ranges) - 1))
             selected_ranges = self.ranges[start_index:end_index]
-
+        # if there are still noneTypes in the selected ranges, replace them with 0
+        selected_ranges = [0 if x is None else x for x in selected_ranges]
         return sum(selected_ranges) / len(selected_ranges) if selected_ranges else 0
     
     def get_value_around_angle(self, angle: float, radius:float=math.pi * 2 / 4) -> float:
@@ -61,6 +65,8 @@ class LidarFrame:
             end_angle += 2 * math.pi
         return self.get_avgr_value_between(start_angle, end_angle)
 
+
+
     
 
 
@@ -68,7 +74,7 @@ class LidarFrame:
     def __repr__(self):
         return f"LidarFrame(angle_min={self.angle_min}, angle_max={self.angle_max}, angle_increment={self.angle_increment}, ranges={len(self.ranges)})"
 
-def get_lidar_data_once(client:roslibpy.Ros) -> LidarFrame:
+def get_lidar_data_once(client:roslibpy.Ros, corrected:bool=False) -> LidarFrame:
     """
     LiDAR-Daten einmal abfragen.
     
@@ -80,4 +86,4 @@ def get_lidar_data_once(client:roslibpy.Ros) -> LidarFrame:
         topic_name='/scan_raw',
         message_type='sensor_msgs/msg/LaserScan',
         timeout=5
-    ))
+    ), corrected=corrected)
