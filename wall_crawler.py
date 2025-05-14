@@ -5,46 +5,27 @@ from heiner_comunication.lidar import LidarFrame, get_lidar_data_once
 from heiner_comunication.motor_control import move, rotate
 
 # --- Konfiguration ---
-BASE_SPEED = 0.6
+BASE_SPEED = 0.5
 ROTATE_SPEED = 0.9
-ESCAPE_SPEED = 0.2
-
+ESCAPE_SPEED = 0.25
+MAX_ANGULAR = 2.0
 WALL_DETECT_THRESHOLD = 0.4
 PREFERRED_RIGHT_DISTANCE = 0.25
-MAX_ANGULAR = 2.0
 
-# --- Platzhalter für Sensorlogik ---
-def check_for_magnet_field() -> bool:
-    return False
-
-def ultrasonic_infront_wall() -> bool:
-    return False
-
-# --- Hilfsfunktionen ---
-def is_dead_end(distances: dict) -> bool:
-    front, left, right = distances['front'], distances['left'], distances['right']
-    print(f"[Dead-End Check] front: {front:.2f}, left: {left:.2f}, right: {right:.2f}")
-
-    if front > WALL_DETECT_THRESHOLD + 0.15:
-        return False  # vorne frei → kein Dead-End
-
-    blocked_sides = sum(d < WALL_DETECT_THRESHOLD + 0.1 for d in [left, right])
-    return blocked_sides >= 2
-
-
-def get_distances(lidar: LidarFrame) -> dict:
+# --- Lidar-Abfragen ---
+def get_distances(lidar: LidarFrame):
     return {
         'front': lidar.get_value_around_angle(0, math.pi / 8),
         'left': lidar.get_value_around_angle(-math.pi / 2, math.pi / 8),
         'right': lidar.get_value_around_angle(math.pi / 2, math.pi / 8)
     }
 
-def is_narrow_corridor(lidar: LidarFrame) -> bool:
-    left = lidar.get_value_around_angle(-math.pi / 2, math.pi / 8)
-    right = lidar.get_value_around_angle(math.pi / 2, math.pi / 8)
-    return left < 0.4 and right < 0.4
+def is_dead_end(distances):
+    print(f"[Dead-End Check] front: {distances['front']:.2f}, left: {distances['left']:.2f}, right: {distances['right']:.2f}")
+    return all(d < WALL_DETECT_THRESHOLD + 0.1 for d in distances.values())
 
-def correct_right_wall(client, talker, lidar, boost=1.0):
+# --- Bewegung ---
+def correct_right_wall(client, talker, lidar):
     side = lidar.get_value_around_angle(-math.pi / 2, math.pi / 8)
     diag = lidar.get_value_around_angle(-math.pi / 3, math.pi / 8)
     front = lidar.get_value_around_angle(-math.pi / 6, math.pi / 8)
@@ -54,7 +35,7 @@ def correct_right_wall(client, talker, lidar, boost=1.0):
     err_front = front - (PREFERRED_RIGHT_DISTANCE + 0.2)
 
     angular_correction = (err_side + 1.5 * err_diag + 2.5 * err_front) / 5
-    angular_correction = max(-MAX_ANGULAR, min(angular_correction * boost, MAX_ANGULAR))
+    angular_correction = max(-MAX_ANGULAR, min(angular_correction, MAX_ANGULAR))
 
     linear_speed = max(0.1, BASE_SPEED * (1.0 - min(abs(angular_correction) * 0.5, 0.7)))
 
@@ -65,12 +46,12 @@ def correct_right_wall(client, talker, lidar, boost=1.0):
     talker.publish(cmd)
 
 def rotate_left(client, duration=1.0):
-    print("↪️ Drehe nach links (freie linke Seite)")
+    print("↪️ Drehe nach links")
     rotate(client=client, speed=ROTATE_SPEED, timeout=duration)
 
 def rotate_in_place(client):
-    print("? ESCAPE: Nur Drehen (kein Rückwärtsfahren)")
-    rotate(client=client, speed=ROTATE_SPEED, timeout=2)
+    print("? ESCAPE: Drehen in Sackgasse")
+    rotate(client=client, speed=ROTATE_SPEED, timeout=1.5)
 
 # --- Hauptlogik ---
 def main(client: roslibpy.Ros):
@@ -78,40 +59,35 @@ def main(client: roslibpy.Ros):
     stuck_counter = 0
 
     while True:
-        lidar = get_lidar_data_once(client)
+        lidar = get_lidar_data_once(client, True)
         distances = get_distances(lidar)
-
-        if check_for_magnet_field():
-            print("🏁 Ziel erreicht! (Magnetfeld erkannt)")
-            break
 
         if is_dead_end(distances):
             stuck_counter += 1
             if stuck_counter >= 3:
-                print("⚠️ Anti-Stuck: Spezialmanöver bei mehrfachem Steckenbleiben")
+                print("⚠️ Anti-Stuck: Spezialmanöver")
                 move(client=client, x=0.3, y=0, timeout=1.0)
                 rotate(client=client, speed=ROTATE_SPEED, timeout=2.0)
                 stuck_counter = 0
             else:
-                print("? HARTE ESCAPE aktiviert (echte Sackgasse)")
                 rotate_in_place(client)
             continue
 
-        stuck_counter = 0  # Reset bei normalem Verlauf
+        # Reset stuck counter if normal
+        stuck_counter = 0
 
-        # ✅ Geradeaus hat Vorrang
-        if distances['front'] > WALL_DETECT_THRESHOLD + 0.1:
-            boost = 2.0 if is_narrow_corridor(lidar) else 1.0
-            correct_right_wall(client, talker, lidar, boost=boost)
-            continue
-
-        # ⬅️ Links frei – abbiegen
-        if distances['left'] > 0.6:
+        if distances['front'] < WALL_DETECT_THRESHOLD:
+            # Front blockiert → drehe links
             rotate_left(client, duration=1.0)
             continue
 
-        # ❌ Nichts geht – minimal drehen
-        rotate_in_place(client)
+        if distances['left'] > 0.6:
+            # Freie linke Seite → folge Wand
+            rotate_left(client, duration=1.0)
+            continue
+
+        # Sonst: geradeaus und rechts korrigieren
+        correct_right_wall(client, talker, lidar)
 
 
 import time
