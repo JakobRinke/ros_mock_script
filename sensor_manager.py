@@ -79,6 +79,7 @@ def remeasure_data(client: roslibpy.Ros) -> SensorData:
     BATTERY_VOLTAE_INST.initialize_battery_status()
     voltage = BATTERY_VOLTAE_INST.current_voltage
     percentage = BATTERY_VOLTAE_INST.current_percentage
+    print("Sending an update")
     CURRENT_MANAGER.update_data(SensorData(magnetic_field, alcohol_v, ultrasonic_v, vibration_v, odometry_v, voltage, percentage))
 
 
@@ -102,9 +103,9 @@ def threadloop(client: roslibpy.Ros):
     while CURRENT_CLIENT is not None:
         print("Threadloop")
         try:
+            print("Remeasuring data")
             remeasure_data(client)
-            CURRENT_MANAGER.get_data()
-            # Sleep for a short duration to avoid busy waiting
+            print("Saving data to CSV")
             save_current_data_to_csv()
         except Exception as e:
             print(f"Error in threadloop: {e}")
