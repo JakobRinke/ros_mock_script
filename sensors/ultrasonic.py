@@ -13,15 +13,15 @@ def ultrasonic_cal():
     GPIO.setup(ECHO,GPIO.IN)
     
     GPIO.output(TRIG, GPIO.LOW)
-    time.sleep(2)
+    time.sleep(0.5)
 
 
 def ultrasonic():
-
     TRIG = 18
     ECHO = 16
 
     try:
+        ultrasonic_cal()
         GPIO.output(TRIG, GPIO.HIGH)
         time.sleep(0.00001)
         GPIO.output(TRIG, GPIO.LOW)

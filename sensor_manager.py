@@ -19,7 +19,6 @@ def start(client: roslibpy.Ros):
     # Calibrate the sensor
     reset_odometry(client)
     BATTERY_VOLTAE_INST = battery_voltage.SimpleBatteryMonitor(client)
-    ultrasonic.ultrasonic_cal()
     BATTERY_VOLTAE_INST.connect()
 
     if CURRENT_THREAD is not None:
@@ -33,7 +32,6 @@ def start(client: roslibpy.Ros):
         print("Creating CSV file")
         f.write("Timestamp,Alcohol,MagneticField,Ultrasonic,Vibration,X,Y,Battery Voltage, Battery %\n")
         f.flush()
-    ultrasonic.ultrasonic_cal()
     CURRENT_THREAD.start()
 
 
@@ -73,7 +71,6 @@ def remeasure_data(client: roslibpy.Ros) -> SensorData:
     # Get the sensor data
     magnetic_field = magnetic.magnetic()
     alcohol_v = alcohol.alcohol()
-    ultrasonic.ultrasonic_cal()
     ultrasonic_v = ultrasonic.ultrasonic()
     vibration_v = vibration.vibration()
     odometry_v = get_odometry_data_once(client)
