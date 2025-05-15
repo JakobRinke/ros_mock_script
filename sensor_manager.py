@@ -115,6 +115,7 @@ if __name__ == "__main__":
     try:
         client.run()
         if client.is_connected:
+            time.sleep(1)
             start(client)
 
             while True:
