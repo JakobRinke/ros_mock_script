@@ -5,7 +5,7 @@ import time
 def ultrasonic():
     TRIG = 18
     ECHO = 16
-
+    distance = 0
     try:
         GPIO.setmode(GPIO.BOARD)
     
@@ -34,7 +34,9 @@ def ultrasonic():
 
         distance = round(distance,2)
 
-    finally:
-        GPIO.cleanup()
+    except Exception as e:
+        print(f"Error in ultrasonic sensor: {e}")
+    
+    GPIO.cleanup()
 
     return distance
