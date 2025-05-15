@@ -207,7 +207,7 @@ def write_into_ros(client: roslibpy.Ros):
                 continue
             data_dict = data.to_dict()
             data_string = json.dumps(data_dict)
-            top.publish(roslibpy.Message(data_string))
+            top.publish(roslibpy.Message({"data": data_string}))
             
 
         except Exception as e:
