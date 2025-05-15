@@ -86,26 +86,24 @@ class BatteryMonitor:
         Returns:
             bool: True if connection successful, False otherwise
         """  
-        try:
-            # Subscribe to battery voltage topic
-            self.battery_sub = roslibpy.Topic(
-                self.client,
-                '/ros_robot_controller/battery',
-                'std_msgs/UInt16'
-            )
-            self.battery_sub.subscribe(self.battery_callback)
-            
-            # Publisher for power mode
-            self.power_mode_pub = roslibpy.Topic(
-                self.client,
-                '/power_mode',
-                'std_msgs/String'
-            )
-            self.power_mode_pub.advertise()
-            return True
-        except Exception as e:
-            print(f"Connection error: {e}")
-            return False
+      
+        # Subscribe to battery voltage topic
+        self.battery_sub = roslibpy.Topic(
+            self.client,
+            '/ros_robot_controller/battery',
+            'std_msgs/UInt16'
+        )
+        self.battery_sub.subscribe(self.battery_callback)
+        
+        # Publisher for power mode
+        self.power_mode_pub = roslibpy.Topic(
+            self.client,
+            '/power_mode',
+            'std_msgs/String'
+        )
+        self.power_mode_pub.advertise()
+        return True
+
     
     def battery_callback(self, message):
         """
