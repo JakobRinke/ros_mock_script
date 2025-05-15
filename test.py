@@ -13,22 +13,11 @@ client.run()
 
 
 if client.is_connected:
-    # lidar = get_lidar_data_once(client=client)
     
 
-    # print(lidar.get_value_around_angle(0, math.pi / 8))
+ 
+    move(client, 0, 1, timeout=0.2)
 
-    #move(client=client, x=0.1, y=0)
-    #rotate(client=client, speed=4)  
-
-    odo = get_odometry_data_once(client=client)
-    print(odo)
-
-    reset_odometry(client=client)
-    odo = get_odometry_data_once(client=client)
-    print(odo)
-
-    time.sleep(1)  
-
+   
 
     client.terminate()

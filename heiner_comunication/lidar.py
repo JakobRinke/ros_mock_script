@@ -92,6 +92,31 @@ class LidarFrame:
         selected_ranges = [0 if x is None else x for x in selected_ranges]
         return max(selected_ranges) if selected_ranges else 0
     
+    def get_values_between_angles(self, angle_min: float, angle_max: float) -> list:
+        """
+        Gibt die Werte zwischen angle_min und angle_max zurück.
+        
+        :param angle_min: Minimaler Winkel
+        :param angle_max: Maximaler Winkel
+        :return: Liste der Werte zwischen angle_min und angle_max
+        """
+        angle_min = angle_min % (2 * math.pi)
+        angle_max = angle_max % (2 * math.pi)
+
+        if angle_min > angle_max:
+            # Handle wrapping around 0
+            ranges_part1 = self.ranges[int((angle_min - self.angle_min) / self.angle_increment):]
+            ranges_part2 = self.ranges[:int((angle_max - self.angle_min) / self.angle_increment)]
+            selected_ranges = ranges_part1 + ranges_part2
+        else:
+            start_index = int((angle_min - self.angle_min) / self.angle_increment)
+            end_index = int((angle_max - self.angle_min) / self.angle_increment)
+            # Ensure indices are within bounds
+            start_index = max(0, min(start_index, len(self.ranges) - 1))
+            end_index = max(0, min(end_index, len(self.ranges) - 1))
+            selected_ranges = self.ranges[start_index:end_index]
+        return selected_ranges
+    
     def get_min_value_between(self, angle_min: float, angle_max: float) -> list:
         """
         Gibt den minimalen Wert zwischen angle_min und angle_max zurück.

@@ -5,6 +5,8 @@ from heiner_comunication.odometry import get_odometry, OdometryData, reset_odome
 from sensors import alcohol, magnetic, ultrasonic, vibration
 from threading import Lock
 import time
+import battery_voltage
+
 
 SENSOR_DATA_CSV_FOLDER = "/home/pi/hard_and_soft/hard-and-soft2025-frontend/sensor_data/log/"
 
@@ -13,11 +15,15 @@ CURRENT_CLIENT = None
 CURRENT_MANAGER = None
 CURRENT_CSV_FILE = None
 
+battery_volatage_inst = battery_voltage.SimpleBatteryMonitor()
+
 def start(client: roslibpy.Ros):
     global CURRENT_THREAD, CURRENT_CLIENT, CURRENT_MANAGER, CURRENT_CSV_FILE
     # Calibrate the sensor
     reset_odometry(client)
     ultrasonic.ultrasonic_cal()
+    battery_volatage_inst.connect()
+
     if CURRENT_THREAD is not None:
         CURRENT_CLIENT = None
         CURRENT_THREAD.join()
@@ -26,7 +32,7 @@ def start(client: roslibpy.Ros):
     CURRENT_THREAD = Thread(target=threadloop, args=(client,))
     CURRENT_CSV_FILE = SENSOR_DATA_CSV_FOLDER + time.strftime("%Y-%m-%d_%H-%M-%S") + ".csv"
     with open(CURRENT_CSV_FILE, "w") as f:
-        f.write("Timestamp,Alcohol,MagneticField,Ultrasonic,Vibration,X,Y\n")
+        f.write("Timestamp,Alcohol,MagneticField,Ultrasonic,Vibration,X,Y,Battery Voltage, Battery %\n")
         f.flush()
     CURRENT_THREAD.start()
 
@@ -72,8 +78,12 @@ def remeasure_data(client: roslibpy.Ros) -> SensorData:
     ultrasonic_v = ultrasonic.ultrasonic(client)
     vibration_v = vibration.get_vibration_data_once(client)
     odometry_v = get_odometry(client)
+    battery_volt = battery_volatage_inst.get_battery_voltage()
 
     CURRENT_MANAGER.update_data(SensorData(magnetic_field, alcohol_v, ultrasonic_v, vibration_v, odometry_v))
+
+
+
 
 def get_current_data() -> SensorData:
     global CURRENT_MANAGER
