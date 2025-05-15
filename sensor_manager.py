@@ -106,6 +106,8 @@ def save_current_data_to_csv():
         raise Exception("SensorManager not started")
     with open(CURRENT_CSV_FILE, "a") as f:
         print("CURRENT_CSV_FILE", CURRENT_CSV_FILE)
+        print("Saving data to CSV")
+        print(CURRENT_MANAGER.to_csv_string())
         f.write(CURRENT_MANAGER.to_csv_string())
         f.flush()
     
