@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
 import time
 
-
+MAX_DISTANCE = 400  # Maximum distance in cm for the ultrasonic sensor
 def ultrasonic():
     TRIG = 18
     ECHO = 16
@@ -22,11 +22,17 @@ def ultrasonic():
         time.sleep(0.00001)
         GPIO.output(TRIG, GPIO.LOW)
 
-        while GPIO.input(ECHO)==0:
-                pulse_start = time.time()
+        timeout = time.time() + 1  # 1 second timeout
+        while GPIO.input(ECHO) == 0:
+            pulse_start = time.time()
+            if time.time() > timeout:
+                return MAX_DISTANCE
 
-        while GPIO.input(ECHO)==1:
-                pulse_end = time.time()
+        timeout = time.time() + 1  # 1 second timeout
+        while GPIO.input(ECHO) == 1:
+            pulse_end = time.time()
+            if time.time() > timeout:
+                return MAX_DISTANCE
 
         pulse_duration = pulse_end-pulse_start
 

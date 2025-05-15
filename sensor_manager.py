@@ -71,21 +71,17 @@ class SensorManager:
 
 def remeasure_data(client: roslibpy.Ros) -> SensorData:
     # Get the sensor data
-    print("Getting sensor data")
     time.sleep(0.5)
     magnetic_field = magnetic.magnetic()
     alcohol_v = alcohol.alcohol()
     ultrasonic_v = ultrasonic.ultrasonic()
     vibration_v = vibration.vibration()
-    print("Getting ODo data")
     time.sleep(0.5)
     odometry_v = get_odometry_data_once(client)
-    print("Getting Battery data")
     time.sleep(0.5)
     BATTERY_VOLTAE_INST.initialize_battery_status()
     voltage = BATTERY_VOLTAE_INST.current_voltage
     percentage = BATTERY_VOLTAE_INST.current_percentage
-    print("Sending an update")
     time.sleep(0.5)
     CURRENT_MANAGER.update_data(SensorData(magnetic_field, alcohol_v, ultrasonic_v, vibration_v, odometry_v, voltage, percentage))
 
@@ -108,34 +104,14 @@ def save_current_data_to_csv():
 def threadloop(client: roslibpy.Ros):
     global CURRENT_MANAGER
     while CURRENT_CLIENT is not None:
-        print("Threadloop")
         try:
-            print("Remeasuring data")
             time.sleep(0.5)
             remeasure_data(client)
-            print("Saving data to CSV")
+       
             save_current_data_to_csv()
         except Exception as e:
             print(f"Error in threadloop: {e}")
         time.sleep(1)
-
-
-magnetic_field = magnetic.magnetic()
-print(f"Magnetic field: {magnetic_field}")
-time.sleep(1)
-
-alcohol_v = alcohol.alcohol()
-print(f"Alcohol: {alcohol_v}")
-time.sleep(1)
-
-ultrasonic_v = ultrasonic.ultrasonic()
-print(f"Ultrasonic: {ultrasonic_v}")
-time.sleep(1)
-
-vibration_v = vibration.vibration()
-print(f"Vibration: {vibration_v}")
-time.sleep(1)
-
 
 
 
