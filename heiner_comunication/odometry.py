@@ -58,7 +58,7 @@ def reset_odometry(client: roslibpy.Ros, timeout: float = 1) -> None:
     odom_topic = '/odom'
     
     # Publisher für das Odometrie-Topic erstellen
-    talker = roslibpy.Topic(client, odom_topic, 'geometry_msgs/PoseWithCovarianceStamped')
+    talker = roslibpy.Topic(client, odom_topic, 'nav_msgs/msg/Odometry')
 
     # Warten, bis das Topic erfolgreich advertised wurde
     talker.advertise()
