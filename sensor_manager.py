@@ -46,7 +46,6 @@ def start(client: roslibpy.Ros):
     WRITE_ROS_THREAD = Thread(target=write_into_ros, args=(client,))
     CURRENT_CSV_FILE = SENSOR_DATA_CSV_FOLDER + time.strftime("%Y-%m-%d_%H-%M-%S") + ".csv"
     with open(CURRENT_CSV_FILE, "w") as f:
-        print("Creating CSV file")
         f.write("Timestamp,Alcohol,MagneticField,Ultrasonic,Vibration,X,Y,Battery Voltage, Battery %\n")
         f.flush()
     CURRENT_THREAD.start()
@@ -104,8 +103,6 @@ class SensorManager:
         self.data = None
 
     def update_data(self, data:SensorData):
-        print("Updating data")
-        print(data)
         with self.lock:
             self.data = data
     
@@ -132,8 +129,6 @@ def save_current_data_to_csv():
     if CURRENT_MANAGER is None:
         raise Exception("SensorManager not started")
     with open(CURRENT_CSV_FILE, "a") as f:
-        print("CURRENT_CSV_FILE", CURRENT_CSV_FILE)
-        print("Saving data to CSV")
         print(CURRENT_MANAGER.to_csv_string())
         f.write(CURRENT_MANAGER.to_csv_string())
         f.flush()
@@ -237,7 +232,7 @@ if __name__ == "__main__":
                 if s is None:
                     print("No data available")
                     continue
-                print(f"SensorData: {s.battery_percentage}")
+                #print(f"SensorData: {s.battery_percentage}")
 
         else:
             print("❌ Verbindung zu ROSBridge fehlgeschlagen")
