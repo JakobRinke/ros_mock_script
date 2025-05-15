@@ -1,11 +1,11 @@
 from threading import Thread
 
 import roslibpy
-from heiner_comunication.odometry import get_odometry, OdometryData, reset_odometry
+from heiner_comunication.odometry import get_odometry_data_once, OdometryData, reset_odometry
 from sensors import alcohol, magnetic, ultrasonic, vibration
 from threading import Lock
 import time
-import battery_voltage
+import simplified_battery_monitor as battery_voltage
 
 
 SENSOR_DATA_CSV_FOLDER = "/home/pi/hard_and_soft/hard-and-soft2025-frontend/sensor_data/log/"
@@ -15,7 +15,7 @@ CURRENT_CLIENT = None
 CURRENT_MANAGER = None
 CURRENT_CSV_FILE = None
 
-battery_volatage_inst = battery_voltage.SimpleBatteryMonitor()
+battery_volatage_inst = battery_voltage.BatteryMonitor()
 
 def start(client: roslibpy.Ros):
     global CURRENT_THREAD, CURRENT_CLIENT, CURRENT_MANAGER, CURRENT_CSV_FILE
@@ -40,7 +40,7 @@ def start(client: roslibpy.Ros):
 
 
 class SensorData:
-    def __init__(self, magnetic_field:float, alcohol:float, ultrasonic:float, vibration:float, odometry:OdometryData):
+    def __init__(self, magnetic_field:float, alcohol:float, ultrasonic:float, vibration:float, odometry:OdometryData, battery_voltage:float, battery_percentage:float):
         self.timestamp: str = time.strftime("%Y-%m-%dT%H:%M:%S")
         self.magnetic_field = magnetic_field
         self.alcohol = alcohol
@@ -48,7 +48,9 @@ class SensorData:
         self.vibration = vibration
         self.x = odometry.x
         self.y = odometry.y
-
+        self.battery_voltage = battery_voltage
+        self.battery_percentage = battery_percentage
+    
 
 class SensorManager:
     def __init__(self):
@@ -63,11 +65,7 @@ class SensorManager:
         with self.lock:
             return self.data
         
-    def to_csv_string(self) -> str:
-        with self.lock:
-            if self.data is None:
-                return ""
-            return f"{self.data.timestamp},{self.data.alcohol},{self.data.magnetic_field},{self.data.ultrasonic},{self.data.vibration},{self.data.x},{self.data.y}\n"
+   
 
 
 
@@ -77,10 +75,11 @@ def remeasure_data(client: roslibpy.Ros) -> SensorData:
     alcohol_v = alcohol.alcohol(client)
     ultrasonic_v = ultrasonic.ultrasonic(client)
     vibration_v = vibration.get_vibration_data_once(client)
-    odometry_v = get_odometry(client)
-    battery_volt = battery_volatage_inst.get_battery_voltage()
-
-    CURRENT_MANAGER.update_data(SensorData(magnetic_field, alcohol_v, ultrasonic_v, vibration_v, odometry_v))
+    odometry_v = get_odometry_data_once(client)
+    bat = battery_volatage_inst.get_battery_status()
+    voltage = bat['voltage']
+    percentage = bat['percentage']
+    CURRENT_MANAGER.update_data(SensorData(magnetic_field, alcohol_v, ultrasonic_v, vibration_v, odometry_v, voltage, percentage))
 
 
 
@@ -110,3 +109,27 @@ def threadloop(client: roslibpy.Ros):
 
 
 
+if __name__ == "__main__":
+    client = roslibpy.Ros(host='192.168.149.1', port=9091)
+
+    try:
+        client.run()
+        if client.is_connected:
+            start(client)
+
+            while True:
+                time.sleep(5)
+                s = get_current_data()
+                print(f"SensorData: {s.battery_percentage}")
+
+        else:
+            print("❌ Verbindung zu ROSBridge fehlgeschlagen")
+    except KeyboardInterrupt:
+        print("⛔️ Beendet durch Tasteneingabe")
+        stop_cmd = {
+            'linear': {'x': 0.0, 'y': 0.0, 'z': 0.0},
+            'angular': {'x': 0.0, 'y': 0.0, 'z': 0.0}
+        }
+        roslibpy.Topic(client, '/cmd_vel', 'geometry_msgs/Twist').publish(stop_cmd)
+        time.sleep(1)
+        client.terminate()

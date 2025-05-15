@@ -5,7 +5,7 @@ import os
 from datetime import datetime
 
 class BatteryMonitor:
-    def __init__(self, host='192.168.149.1', port=9091, log_file="battery_log.json"):
+    def __init__(self, client, log_file="battery_log.json"):
         """
         Initialize battery monitor with logging and rule-based parameter control.
         
@@ -14,8 +14,7 @@ class BatteryMonitor:
             port (int): ROS bridge port
             log_file (str): File to log battery data
         """
-        self.host = host
-        self.port = port
+        self.client = client
         self.log_file = log_file
         
         # ROS connections
@@ -86,36 +85,24 @@ class BatteryMonitor:
         
         Returns:
             bool: True if connection successful, False otherwise
-        """
-        print(f"Connecting to ROS bridge at {self.host}:{self.port}...")
-        self.client = roslibpy.Ros(host=self.host, port=self.port)
-        
+        """  
         try:
-            self.client.run()
+            # Subscribe to battery voltage topic
+            self.battery_sub = roslibpy.Topic(
+                self.client,
+                '/ros_robot_controller/battery',
+                'std_msgs/UInt16'
+            )
+            self.battery_sub.subscribe(self.battery_callback)
             
-            if self.client.is_connected:
-                print("Connected to ROS bridge.")
-                
-                # Subscribe to battery voltage topic
-                self.battery_sub = roslibpy.Topic(
-                    self.client,
-                    '/ros_robot_controller/battery',
-                    'std_msgs/UInt16'
-                )
-                self.battery_sub.subscribe(self.battery_callback)
-                
-                # Publisher for power mode
-                self.power_mode_pub = roslibpy.Topic(
-                    self.client,
-                    '/power_mode',
-                    'std_msgs/String'
-                )
-                self.power_mode_pub.advertise()
-                
-                return True
-            else:
-                print("Failed to connect to ROS bridge.")
-                return False
+            # Publisher for power mode
+            self.power_mode_pub = roslibpy.Topic(
+                self.client,
+                '/power_mode',
+                'std_msgs/String'
+            )
+            self.power_mode_pub.advertise()
+            return True
         except Exception as e:
             print(f"Connection error: {e}")
             return False
