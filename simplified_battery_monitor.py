@@ -124,7 +124,7 @@ class BatteryMonitor:
         new_mode = self.determine_power_mode(voltage)
         
         # Log status
-        print(f"Voltage: {voltage:.2f} V, Battery: {self.battery_percentage:.1f}%, Mode: {new_mode}")
+        #print(f"Voltage: {voltage:.2f} V, Battery: {self.battery_percentage:.1f}%, Mode: {new_mode}")
         
         # Log data with timestamp
         current_time = time.time()
@@ -139,12 +139,12 @@ class BatteryMonitor:
             
             if self.power_mode_pub:
                 self.power_mode_pub.publish(roslibpy.Message({'data': new_mode}))
-                print(f"Power mode changed: {old_mode} -> {new_mode}")
+                #print(f"Power mode changed: {old_mode} -> {new_mode}")
                 
                 # Print the new parameters
                 params = self.get_current_params()
-                print(f"New parameters: Speed: {params['speed_factor']*100:.0f}%, " + 
-                      f"Smoothing: {params['smoothing']}, Max Angular: {params['max_angular']}")
+                # print(f"New parameters: Speed: {params['speed_factor']*100:.0f}%, " + 
+                #       f"Smoothing: {params['smoothing']}, Max Angular: {params['max_angular']}")
     
     def convert_voltage_to_percentage(self, voltage):
         """
@@ -211,7 +211,7 @@ class BatteryMonitor:
         self.battery_logs.append(log_entry)
         self._save_logs()
         
-        print(f"Battery data logged: {voltage:.2f}V, {self.battery_percentage:.1f}%")
+        #print(f"Battery data logged: {voltage:.2f}V, {self.battery_percentage:.1f}%")
     
     def _load_logs(self):
         """Load battery logs from file if it exists."""
@@ -219,9 +219,9 @@ class BatteryMonitor:
             if os.path.exists(self.log_file):
                 with open(self.log_file, 'r') as f:
                     self.battery_logs = json.load(f)
-                print(f"Loaded {len(self.battery_logs)} battery log entries")
+                #print(f"Loaded {len(self.battery_logs)} battery log entries")
         except Exception as e:
-            print(f"Error loading battery logs: {e}")
+            #print(f"Error loading battery logs: {e}")
             self.battery_logs = []
     
     def _save_logs(self):
