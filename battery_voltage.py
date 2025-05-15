@@ -21,7 +21,7 @@ class SimpleBatteryMonitor:
         
     def connect(self):
         if self.client.is_connected:
-            print("Connected to ROS bridge.")
+            #print("Connected to ROS bridge.")
             # Subscribe to battery voltage topic
             self.battery_sub = roslibpy.Topic(
                 self.client,
@@ -47,7 +47,7 @@ class SimpleBatteryMonitor:
             
     def initialize_battery_status(self):
         """Request and display initial battery status"""
-        print("Initializing battery status...")
+        #print("Initializing battery status...")
         # Wait briefly for first message
         start_time = time.time()
         timeout = 5.0  # seconds
@@ -55,8 +55,9 @@ class SimpleBatteryMonitor:
             time.sleep(0.1)
         
         if self.current_voltage is not None:
-            print(f"Initial Battery Status - Voltage: {self.current_voltage:.2f} V, "
-                  f"Battery: {self.current_percentage:.1f}%, Mode: {self.current_mode}")
+            # print(f"Initial Battery Status - Voltage: {self.current_voltage:.2f} V, "
+            #       f"Battery: {self.current_percentage:.1f}%, Mode: {self.current_mode}")
+            pass
         else:
             print("Warning: Could not retrieve initial battery status within timeout")
     
@@ -70,13 +71,13 @@ class SimpleBatteryMonitor:
         self.current_percentage = self.convert_voltage_to_percentage(voltage)
         new_mode = self.determine_power_mode(voltage)
         
-        print(f"Voltage: {self.current_voltage:.2f} V, Battery: {self.current_percentage:.1f}%, Mode: {new_mode}")
+        #print(f"Voltage: {self.current_voltage:.2f} V, Battery: {self.current_percentage:.1f}%, Mode: {new_mode}")
         
         if new_mode != self.current_mode:
             self.current_mode = new_mode
             if self.power_mode_pub:
                 self.power_mode_pub.publish(roslibpy.Message({'data': new_mode}))
-                print(f"Power mode changed to: {new_mode}")
+                #print(f"Power mode changed to: {new_mode}")
     
     def convert_voltage_to_percentage(self, voltage):
         # Clamp voltage to realistic LiPo range
