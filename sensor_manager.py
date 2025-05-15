@@ -120,7 +120,15 @@ def threadloop(client: roslibpy.Ros):
         time.sleep(1)
 
 
+magnetic_field = magnetic.magnetic()
+alcohol_v = alcohol.alcohol()
+ultrasonic_v = ultrasonic.ultrasonic()
+vibration_v = vibration.vibration()
 
+print(f"Magnetic field: {magnetic_field}")
+print(f"Alcohol: {alcohol_v}")
+print(f"Ultrasonic: {ultrasonic_v}")
+print(f"Vibration: {vibration_v}")
 
 if __name__ == "__main__":
     client = roslibpy.Ros(host='192.168.149.1', port=9091)
