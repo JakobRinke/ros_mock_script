@@ -1,0 +1,375 @@
+Timestamp,Step,X,Y,Orientation,Action,Reward,FrontDist,RightDist,LeftDist,BackDist
+[01:39:52] ODOM Callback (FRESH): Pos(0.000, 0.000), Yaw: 1.858rad (106.4°), Vel: lin=0.00, ang=-0.00, Seq: 0
+[01:39:52] ODOM Callback (FRESH): Pos(0.000, 0.000), Yaw: 1.858rad (106.4°), Vel: lin=0.00, ang=-0.00, Seq: 0
+01:39:52,0,0.000,0.000,1.858,,,0.763,0.224,0.185,2.040
+[01:39:53] ODOM Callback (FRESH): Pos(-0.021, 0.069), Yaw: 1.863rad (106.7°), Vel: lin=0.20, ang=0.00, Seq: 0
+[01:39:53] ODOM Callback (FRESH): Pos(-0.026, 0.086), Yaw: 1.865rad (106.9°), Vel: lin=-0.00, ang=0.00, Seq: 0
+01:39:53,0,-0.026,0.086,1.863,0,10.450699811801266,0.634,0.248,0.194,1.949
+[01:39:53] ODOM Periodic Check (FRESH): Pos(-0.026, 0.086), Yaw: 1.863rad (106.7°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:39:53] ODOM Callback (FRESH): Pos(-0.026, 0.086), Yaw: 1.873rad (107.3°), Vel: lin=-0.00, ang=0.00, Seq: 0
+01:39:54,1,-0.053,0.173,1.874,0,5.452713164550391,0.599,0.302,0.211,2.157
+[01:39:54] ODOM Callback (FRESH): Pos(-0.053, 0.173), Yaw: 1.883rad (107.9°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:39:54] ODOM Callback (FRESH): Pos(-0.053, 0.173), Yaw: 1.878rad (107.6°), Vel: lin=-0.00, ang=-0.02, Seq: 0
+[01:39:54] ODOM Callback (FRESH): Pos(-0.053, 0.173), Yaw: 1.870rad (107.2°), Vel: lin=-0.00, ang=-0.06, Seq: 0
+[01:39:54] ODOM Callback (FRESH): Pos(-0.053, 0.173), Yaw: 1.786rad (102.3°), Vel: lin=-0.00, ang=-0.32, Seq: 0
+[01:39:55] ODOM Callback (FRESH): Pos(-0.053, 0.173), Yaw: 1.675rad (95.9°), Vel: lin=-0.00, ang=-0.32, Seq: 0
+[01:39:55] ODOM Callback (FRESH): Pos(-0.053, 0.173), Yaw: 1.606rad (92.0°), Vel: lin=-0.00, ang=-0.01, Seq: 0
+01:39:55,2,-0.053,0.173,1.599,1,2,0.420,0.297,0.233,1.220
+[01:39:55] ODOM Callback (FRESH): Pos(-0.053, 0.173), Yaw: 1.599rad (91.6°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:39:55] ODOM Callback (FRESH): Pos(-0.053, 0.174), Yaw: 1.596rad (91.5°), Vel: lin=0.07, ang=-0.00, Seq: 0
+[01:39:55] ODOM Callback (FRESH): Pos(-0.053, 0.180), Yaw: 1.595rad (91.4°), Vel: lin=0.17, ang=-0.01, Seq: 0
+[01:39:55] ODOM Callback (FRESH): Pos(-0.053, 0.181), Yaw: 1.587rad (90.9°), Vel: lin=0.17, ang=-0.05, Seq: 0
+[01:39:55] ODOM Callback (FRESH): Pos(-0.054, 0.192), Yaw: 1.566rad (89.7°), Vel: lin=0.20, ang=-0.17, Seq: 0
+[01:39:55] ODOM Callback (FRESH): Pos(-0.054, 0.194), Yaw: 1.559rad (89.3°), Vel: lin=0.20, ang=-0.20, Seq: 0
+[01:39:55] ODOM Callback (FRESH): Pos(-0.053, 0.216), Yaw: 1.526rad (87.4°), Vel: lin=0.20, ang=-0.26, Seq: 0
+[01:39:55] ODOM Callback (FRESH): Pos(-0.053, 0.218), Yaw: 1.525rad (87.4°), Vel: lin=0.20, ang=-0.25, Seq: 0
+[01:39:56] ODOM Callback (FRESH): Pos(-0.050, 0.272), Yaw: 1.505rad (86.2°), Vel: lin=0.20, ang=-0.06, Seq: 0
+01:39:56,3,-0.050,0.267,1.502,0,0.47348642298804583,0.312,0.299,0.340,1.134
+[01:39:56] ODOM Callback (FRESH): Pos(-0.050, 0.267), Yaw: 1.502rad (86.1°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:39:56] ODOM Callback (FRESH): Pos(-0.050, 0.267), Yaw: 1.503rad (86.1°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:39:56] ODOM Callback (FRESH): Pos(-0.050, 0.267), Yaw: 1.509rad (86.4°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:39:56] ODOM Callback (FRESH): Pos(-0.050, 0.268), Yaw: 1.508rad (86.4°), Vel: lin=0.07, ang=0.00, Seq: 0
+[01:39:56] ODOM Callback (FRESH): Pos(-0.050, 0.272), Yaw: 1.508rad (86.4°), Vel: lin=0.13, ang=0.00, Seq: 0
+[01:39:56] ODOM Callback (FRESH): Pos(-0.044, 0.362), Yaw: 1.514rad (86.8°), Vel: lin=-0.00, ang=-0.01, Seq: 0
+01:39:56,4,-0.044,0.362,1.517,0,3.474962545898111,0.226,0.279,0.441,1.091
+[01:39:57] ODOM Callback (FRESH): Pos(-0.044, 0.362), Yaw: 1.513rad (86.7°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:39:57] ODOM Callback (FRESH): Pos(-0.044, 0.362), Yaw: 1.567rad (89.8°), Vel: lin=-0.00, ang=0.19, Seq: 0
+[01:39:57] ODOM Callback (FRESH): Pos(-0.044, 0.362), Yaw: 1.667rad (95.5°), Vel: lin=-0.00, ang=0.37, Seq: 0
+01:39:58,5,-0.044,0.362,1.790,2,3,0.236,0.199,0.368,2.956
+[01:39:58] ODOM Callback (FRESH): Pos(-0.046, 0.369), Yaw: 1.799rad (103.1°), Vel: lin=0.17, ang=0.04, Seq: 0
+[01:39:58] ODOM Callback (FRESH): Pos(-0.054, 0.401), Yaw: 1.864rad (106.8°), Vel: lin=0.20, ang=0.25, Seq: 0
+[01:39:58] ODOM Callback (FRESH): Pos(-0.058, 0.412), Yaw: 1.873rad (107.3°), Vel: lin=0.20, ang=0.21, Seq: 0
+[01:39:58] ODOM Callback (FRESH): Pos(-0.060, 0.420), Yaw: 1.869rad (107.1°), Vel: lin=0.20, ang=0.10, Seq: 0
+[01:39:58] ODOM Callback (FRESH): Pos(-0.063, 0.428), Yaw: 1.862rad (106.7°), Vel: lin=0.20, ang=0.01, Seq: 0
+01:39:59,6,-0.070,0.453,1.892,0,0.4724545503211829,0.208,0.157,0.372,2.036
+[01:39:59] ODOM Callback (FRESH): Pos(-0.070, 0.453), Yaw: 1.893rad (108.4°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:39:59] ODOM Callback (FRESH): Pos(-0.070, 0.453), Yaw: 1.892rad (108.4°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:39:59] ODOM Callback (FRESH): Pos(-0.070, 0.453), Yaw: 1.892rad (108.4°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:39:59] ODOM Callback (FRESH): Pos(-0.080, 0.483), Yaw: 1.880rad (107.7°), Vel: lin=0.20, ang=-0.05, Seq: 0
+[01:39:59] ODOM Callback (FRESH): Pos(-0.095, 0.535), Yaw: 1.831rad (104.9°), Vel: lin=0.20, ang=-0.24, Seq: 0
+01:39:59,7,-0.097,0.541,1.803,0,0.45946303258779786,0.201,0.162,0.395,3.119
+[01:39:59] ODOM Callback (FRESH): Pos(-0.097, 0.541), Yaw: 1.802rad (103.3°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:39:59] ODOM Callback (FRESH): Pos(-0.097, 0.541), Yaw: 1.802rad (103.2°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:39:59] ODOM Callback (FRESH): Pos(-0.097, 0.541), Yaw: 1.802rad (103.2°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:40:00] ODOM Callback (FRESH): Pos(-0.097, 0.541), Yaw: 1.804rad (103.4°), Vel: lin=-0.00, ang=0.01, Seq: 0
+[01:40:00] ODOM Callback (FRESH): Pos(-0.097, 0.541), Yaw: 1.808rad (103.6°), Vel: lin=-0.00, ang=0.04, Seq: 0
+[01:40:00] ODOM Callback (FRESH): Pos(-0.097, 0.541), Yaw: 1.811rad (103.8°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:40:00] ODOM Callback (FRESH): Pos(-0.097, 0.541), Yaw: 1.888rad (108.2°), Vel: lin=-0.00, ang=0.50, Seq: 0
+01:40:01,8,-0.097,0.541,1.899,2,0,0.210,0.162,0.375,3.254
+01:40:01,10,-0.133,0.607,1.809,0,,0.200,0.173,0.380,3.026
+01:40:02,10,-0.149,0.696,1.654,0,3.4515419340379716,0.194,0.214,0.404,2.333
+[01:40:02] ODOM Callback (FRESH): Pos(-0.149, 0.696), Yaw: 1.649rad (94.5°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:40:02] ODOM Callback (FRESH): Pos(-0.149, 0.696), Yaw: 1.648rad (94.4°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:40:02] ODOM Callback (FRESH): Pos(-0.149, 0.696), Yaw: 1.647rad (94.4°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:40:02] ODOM Callback (FRESH): Pos(-0.149, 0.696), Yaw: 1.649rad (94.5°), Vel: lin=-0.00, ang=0.01, Seq: 0
+[01:40:03] ODOM Callback (FRESH): Pos(-0.149, 0.696), Yaw: 1.740rad (99.7°), Vel: lin=-0.00, ang=0.25, Seq: 0
+01:40:03,11,-0.149,0.696,1.796,2,3,0.206,0.197,0.365,3.003
+[01:40:04] ODOM Callback (FRESH): Pos(-0.172, 0.777), Yaw: 1.868rad (107.0°), Vel: lin=0.20, ang=0.12, Seq: 0
+01:40:04,12,-0.174,0.783,1.876,0,4.570944623677013,0.245,0.195,0.338,3.184
+[01:40:04] ODOM Callback (FRESH): Pos(-0.174, 0.783), Yaw: 1.876rad (107.5°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:40:05] ODOM Callback (FRESH): Pos(-0.198, 0.865), Yaw: 1.875rad (107.4°), Vel: lin=0.20, ang=0.05, Seq: 0
+01:40:05,13,-0.202,0.875,1.862,0,4.604533440692514,0.287,0.202,0.319,2.858
+[01:40:05] ODOM Callback (FRESH): Pos(-0.202, 0.875), Yaw: 1.845rad (105.7°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:40:05] ODOM Callback (FRESH): Pos(-0.202, 0.876), Yaw: 1.845rad (105.7°), Vel: lin=0.07, ang=0.00, Seq: 0
+01:40:06,14,-0.228,0.962,1.864,0,9.841178874401749,0.416,0.209,0.296,2.291
+[01:40:06] ODOM Callback (FRESH): Pos(-0.228, 0.962), Yaw: 1.867rad (107.0°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:40:06] ODOM Callback (FRESH): Pos(-0.228, 0.962), Yaw: 1.866rad (106.9°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:40:06] ODOM Callback (FRESH): Pos(-0.230, 0.969), Yaw: 1.878rad (107.6°), Vel: lin=0.17, ang=0.01, Seq: 0
+01:40:07,15,-0.255,1.049,1.786,0,9.614274852378855,0.469,0.186,0.304,1.904
+[01:40:07] ODOM Callback (FRESH): Pos(-0.257, 1.060), Yaw: 1.787rad (102.4°), Vel: lin=0.18, ang=0.00, Seq: 0
+[01:40:07] ODOM Callback (FRESH): Pos(-0.262, 1.083), Yaw: 1.774rad (101.6°), Vel: lin=0.20, ang=-0.11, Seq: 0
+[01:40:07] ODOM Callback (FRESH): Pos(-0.264, 1.090), Yaw: 1.761rad (100.9°), Vel: lin=0.20, ang=-0.18, Seq: 0
+[01:40:07] ODOM Callback (FRESH): Pos(-0.270, 1.122), Yaw: 1.778rad (101.9°), Vel: lin=0.20, ang=0.12, Seq: 0
+01:40:07,16,-0.273,1.138,1.780,0,11.686064755212191,0.546,0.189,0.327,1.269
+[01:40:07] ODOM Callback (FRESH): Pos(-0.273, 1.138), Yaw: 1.772rad (101.5°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:40:08] ODOM Callback (FRESH): Pos(-0.273, 1.139), Yaw: 1.772rad (101.5°), Vel: lin=0.07, ang=-0.00, Seq: 0
+[01:40:08] ODOM Callback (FRESH): Pos(-0.273, 1.139), Yaw: 1.772rad (101.5°), Vel: lin=0.07, ang=-0.00, Seq: 0
+[01:40:08] ODOM Callback (FRESH): Pos(-0.274, 1.143), Yaw: 1.776rad (101.8°), Vel: lin=0.13, ang=0.02, Seq: 0
+[01:40:08] ODOM Callback (FRESH): Pos(-0.289, 1.207), Yaw: 1.808rad (103.6°), Vel: lin=0.20, ang=0.03, Seq: 0
+[01:40:08] ODOM Callback (FRESH): Pos(-0.293, 1.222), Yaw: 1.811rad (103.8°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+01:40:08,17,-0.293,1.222,1.800,0,9.18620303850831,0.797,0.164,0.336,1.276
+[01:40:08] ODOM Callback (FRESH): Pos(-0.293, 1.222), Yaw: 1.801rad (103.2°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:40:09] ODOM Callback (FRESH): Pos(-0.299, 1.248), Yaw: 1.817rad (104.1°), Vel: lin=0.20, ang=0.10, Seq: 0
+01:40:09,18,-0.315,1.310,1.805,0,8.651720674475085,0.863,0.159,0.362,0.943
+01:40:10,19,-0.339,1.402,1.814,0,2.4731591874560523,0.754,0.113,0.452,1.095
+01:40:10,20,-0.339,1.402,1.816,0,,0.737,0.103,0.468,1.118
+[01:40:10] ODOM Callback (FRESH): Pos(-0.360, 1.437), Yaw: 1.809rad (103.7°), Vel: lin=0.20, ang=-0.06, Seq: 0
+[01:40:11] ODOM Callback (FRESH): Pos(-0.378, 1.464), Yaw: 1.809rad (103.7°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:40:11] ODOM Callback (FRESH): Pos(-0.397, 1.508), Yaw: 1.814rad (103.9°), Vel: lin=0.20, ang=0.04, Seq: 0
+[01:40:12] ODOM Callback (FRESH): Pos(-0.427, 1.610), Yaw: 1.815rad (104.0°), Vel: lin=0.20, ang=0.01, Seq: 0
+[01:40:12] ODOM Callback (FRESH): Pos(-0.429, 1.620), Yaw: 1.814rad (103.9°), Vel: lin=0.20, ang=-0.01, Seq: 0
+01:40:12,22,-0.430,1.622,1.814,0,8.457598747012591,0.474,0.258,0.661,0.791
+01:40:13,23,-0.452,1.711,1.813,0,3.4585323413277385,0.370,0.348,0.224,0.884
+[01:40:13] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.805rad (103.4°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:40:14] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.604rad (91.9°), Vel: lin=-0.00, ang=-0.37, Seq: 0
+[01:40:14] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.590rad (91.1°), Vel: lin=-0.00, ang=-0.36, Seq: 0
+[01:40:14] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.559rad (89.3°), Vel: lin=-0.00, ang=-0.38, Seq: 0
+01:40:14,24,-0.452,1.711,1.541,1,0,0.333,0.309,0.297,0.683
+[01:40:14] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.541rad (88.3°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:40:14] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.481rad (84.9°), Vel: lin=-0.00, ang=-0.27, Seq: 0
+[01:40:14] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.455rad (83.3°), Vel: lin=-0.00, ang=-0.31, Seq: 0
+[01:40:15] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.321rad (75.7°), Vel: lin=-0.00, ang=-0.30, Seq: 0
+01:40:15,25,-0.452,1.711,1.180,1,-8,0.681,0.286,0.530,0.559
+[01:40:15] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.179rad (67.6°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:40:16] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.177rad (67.4°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:40:16] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.191rad (68.2°), Vel: lin=-0.00, ang=0.09, Seq: 0
+[01:40:16] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.208rad (69.2°), Vel: lin=-0.00, ang=0.16, Seq: 0
+[01:40:16] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.256rad (72.0°), Vel: lin=-0.00, ang=0.26, Seq: 0
+[01:40:16] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.299rad (74.5°), Vel: lin=-0.00, ang=0.35, Seq: 0
+01:40:16,26,-0.452,1.711,1.326,2,-8,0.718,0.289,0.484,0.562
+[01:40:16] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.327rad (76.1°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:40:17] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.327rad (76.1°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:40:17] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.642rad (94.1°), Vel: lin=-0.00, ang=0.38, Seq: 0
+01:40:18,27,-0.452,1.711,1.708,2,-10,0.339,0.326,0.251,0.773
+[01:40:18] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.817rad (104.1°), Vel: lin=-0.00, ang=0.32, Seq: 0
+[01:40:19] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.965rad (112.6°), Vel: lin=-0.00, ang=0.38, Seq: 0
+[01:40:19] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.980rad (113.4°), Vel: lin=-0.00, ang=0.32, Seq: 0
+01:40:19,28,-0.452,1.711,2.046,2,-10,0.460,0.547,0.298,0.842
+[01:40:19] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.048rad (117.4°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:40:19] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.051rad (117.5°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:40:19] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.051rad (117.5°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:40:19] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.056rad (117.8°), Vel: lin=-0.00, ang=0.02, Seq: 0
+[01:40:19] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.093rad (119.9°), Vel: lin=-0.00, ang=0.23, Seq: 0
+[01:40:20] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.398rad (137.4°), Vel: lin=-0.00, ang=0.38, Seq: 0
+01:40:20,29,-0.452,1.711,2.440,2,-10,0.639,1.102,0.564,0.303
+[01:40:20] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.446rad (140.2°), Vel: lin=-0.00, ang=0.00, Seq: 0
+01:40:20,30,-0.452,1.711,2.443,2,,0.644,1.113,0.559,0.297
+[01:40:21] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.509rad (143.7°), Vel: lin=-0.00, ang=0.28, Seq: 0
+[01:40:21] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.531rad (145.0°), Vel: lin=-0.00, ang=0.37, Seq: 0
+[01:40:21] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.585rad (148.1°), Vel: lin=-0.00, ang=0.26, Seq: 0
+[01:40:21] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.595rad (148.7°), Vel: lin=-0.00, ang=0.25, Seq: 0
+[01:40:21] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.651rad (151.9°), Vel: lin=-0.00, ang=0.28, Seq: 0
+01:40:21,30,-0.452,1.711,2.768,2,-10,0.587,0.912,0.560,0.269
+[01:40:22] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.851rad (163.4°), Vel: lin=-0.00, ang=0.33, Seq: 0
+[01:40:22] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.859rad (163.8°), Vel: lin=-0.00, ang=0.34, Seq: 0
+[01:40:22] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.862rad (164.0°), Vel: lin=-0.00, ang=0.33, Seq: 0
+[01:40:22] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.920rad (167.3°), Vel: lin=-0.00, ang=0.34, Seq: 0
+[01:40:22] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.920rad (167.3°), Vel: lin=-0.00, ang=0.30, Seq: 0
+[01:40:22] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.923rad (167.4°), Vel: lin=-0.00, ang=0.30, Seq: 0
+[01:40:22] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 3.013rad (172.6°), Vel: lin=-0.00, ang=0.42, Seq: 0
+01:40:23,31,-0.452,1.711,-3.116,2,-10,0.338,0.343,0.690,0.299
+[01:40:23] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -3.116rad (-178.6°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:40:23] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -3.116rad (-178.6°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:40:23] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -3.084rad (-176.7°), Vel: lin=-0.00, ang=0.17, Seq: 0
+[01:40:23] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -3.050rad (-174.8°), Vel: lin=-0.00, ang=0.29, Seq: 0
+[01:40:23] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -3.047rad (-174.6°), Vel: lin=-0.00, ang=0.27, Seq: 0
+[01:40:23] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.985rad (-171.0°), Vel: lin=-0.00, ang=0.33, Seq: 0
+[01:40:24] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.850rad (-163.3°), Vel: lin=-0.00, ang=0.38, Seq: 0
+01:40:24,32,-0.452,1.711,-2.765,2,-10,0.246,0.390,0.875,0.519
+[01:40:24] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.723rad (-156.0°), Vel: lin=-0.00, ang=0.21, Seq: 0
+[01:40:25] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.557rad (-146.5°), Vel: lin=-0.00, ang=0.33, Seq: 0
+01:40:25,33,-0.452,1.711,-2.400,2,-10,0.468,0.584,0.412,1.002
+[01:40:26] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.392rad (-137.0°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:40:26] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.241rad (-128.4°), Vel: lin=-0.00, ang=0.41, Seq: 0
+[01:40:26] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.228rad (-127.7°), Vel: lin=-0.00, ang=0.38, Seq: 0
+[01:40:27] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.075rad (-118.9°), Vel: lin=-0.00, ang=0.44, Seq: 0
+[01:40:27] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.071rad (-118.6°), Vel: lin=-0.00, ang=0.45, Seq: 0
+[01:40:27] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.057rad (-117.9°), Vel: lin=-0.00, ang=0.43, Seq: 0
+01:40:27,34,-0.452,1.711,-2.040,2,-10,0.570,0.620,0.280,0.913
+[01:40:27] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.040rad (-116.9°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:40:27] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.025rad (-116.0°), Vel: lin=-0.00, ang=0.09, Seq: 0
+[01:40:27] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -1.935rad (-110.9°), Vel: lin=-0.00, ang=0.30, Seq: 0
+[01:40:27] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -1.900rad (-108.9°), Vel: lin=-0.00, ang=0.33, Seq: 0
+[01:40:28] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -1.802rad (-103.3°), Vel: lin=-0.00, ang=0.45, Seq: 0
+[01:40:28] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -1.660rad (-95.1°), Vel: lin=-0.00, ang=0.00, Seq: 0
+01:40:28,35,-0.452,1.711,-1.659,2,-10,0.631,0.442,0.297,0.427
+[01:40:28] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -1.659rad (-95.0°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:40:28] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -1.659rad (-95.1°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:40:29] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -1.566rad (-89.7°), Vel: lin=-0.00, ang=0.33, Seq: 0
+[01:40:29] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -1.436rad (-82.3°), Vel: lin=-0.00, ang=0.39, Seq: 0
+[01:40:29] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -1.375rad (-78.8°), Vel: lin=-0.00, ang=0.37, Seq: 0
+[01:40:29] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -1.341rad (-76.8°), Vel: lin=-0.00, ang=0.28, Seq: 0
+01:40:30,36,-0.452,1.711,-1.308,2,-5,0.875,0.248,0.402,0.330
+[01:40:30] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -1.307rad (-74.9°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:40:30] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -1.154rad (-66.1°), Vel: lin=-0.00, ang=0.39, Seq: 0
+[01:40:30] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -1.044rad (-59.8°), Vel: lin=-0.00, ang=0.41, Seq: 0
+01:40:31,37,-0.452,1.711,-0.920,2,-10,0.665,0.323,0.896,0.534
+[01:40:31] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -0.890rad (-51.0°), Vel: lin=-0.00, ang=0.14, Seq: 0
+[01:40:32] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -0.676rad (-38.7°), Vel: lin=-0.00, ang=0.34, Seq: 0
+[01:40:32] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -0.621rad (-35.6°), Vel: lin=-0.00, ang=0.37, Seq: 0
+[01:40:32] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -0.556rad (-31.9°), Vel: lin=-0.00, ang=0.00, Seq: 0
+01:40:32,38,-0.452,1.711,-0.556,2,-10,0.307,0.559,1.012,0.622
+[01:40:33] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -0.283rad (-16.2°), Vel: lin=-0.00, ang=0.38, Seq: 0
+[01:40:33] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -0.275rad (-15.8°), Vel: lin=-0.00, ang=0.40, Seq: 0
+01:40:33,39,-0.452,1.711,-0.204,2,-10,0.300,0.587,0.624,0.452
+[01:40:33] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -0.203rad (-11.6°), Vel: lin=-0.00, ang=0.00, Seq: 0
+01:40:33,40,-0.452,1.711,-0.203,2,,0.302,0.594,0.531,0.426
+[01:40:34] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -0.102rad (-5.9°), Vel: lin=-0.00, ang=0.42, Seq: 0
+[01:40:34] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -0.092rad (-5.3°), Vel: lin=-0.00, ang=0.39, Seq: 0
+[01:40:34] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -0.058rad (-3.3°), Vel: lin=-0.00, ang=0.30, Seq: 0
+[01:40:35] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 0.140rad (8.0°), Vel: lin=-0.00, ang=0.00, Seq: 0
+01:40:35,40,-0.452,1.711,0.148,2,-10,0.355,0.783,0.331,0.243
+[01:40:35] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 0.213rad (12.2°), Vel: lin=-0.00, ang=0.31, Seq: 0
+[01:40:35] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 0.310rad (17.8°), Vel: lin=-0.00, ang=0.29, Seq: 0
+[01:40:36] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 0.433rad (24.8°), Vel: lin=-0.00, ang=0.36, Seq: 0
+01:40:36,41,-0.452,1.711,0.497,2,-10,0.643,0.872,0.496,0.287
+[01:40:36] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 0.498rad (28.6°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:40:36] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 0.505rad (29.0°), Vel: lin=-0.00, ang=0.01, Seq: 0
+[01:40:36] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 0.646rad (37.0°), Vel: lin=-0.00, ang=0.38, Seq: 0
+[01:40:36] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 0.650rad (37.3°), Vel: lin=-0.00, ang=0.28, Seq: 0
+[01:40:36] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 0.657rad (37.7°), Vel: lin=-0.00, ang=0.25, Seq: 0
+[01:40:37] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 0.745rad (42.7°), Vel: lin=-0.00, ang=0.41, Seq: 0
+01:40:37,42,-0.452,1.711,0.880,2,-10,1.124,0.321,0.632,0.543
+[01:40:38] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.116rad (63.9°), Vel: lin=-0.00, ang=0.36, Seq: 0
+[01:40:38] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.169rad (67.0°), Vel: lin=-0.00, ang=0.39, Seq: 0
+[01:40:38] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.247rad (71.5°), Vel: lin=-0.00, ang=0.00, Seq: 0
+01:40:38,43,-0.452,1.711,1.248,2,-8,0.745,0.285,0.509,0.553
+[01:40:39] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.262rad (72.3°), Vel: lin=-0.00, ang=0.07, Seq: 0
+[01:40:39] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.344rad (77.0°), Vel: lin=-0.00, ang=0.38, Seq: 0
+[01:40:39] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.389rad (79.6°), Vel: lin=-0.00, ang=0.35, Seq: 0
+[01:40:39] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.460rad (83.7°), Vel: lin=-0.00, ang=0.43, Seq: 0
+[01:40:39] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.496rad (85.7°), Vel: lin=-0.00, ang=0.36, Seq: 0
+[01:40:39] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.548rad (88.7°), Vel: lin=-0.00, ang=0.35, Seq: 0
+[01:40:39] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.599rad (91.6°), Vel: lin=-0.00, ang=0.36, Seq: 0
+01:40:40,44,-0.452,1.711,1.629,2,-10,0.344,0.311,0.272,0.695
+[01:40:40] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.630rad (93.4°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:40:40] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.629rad (93.3°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:40:40] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.810rad (103.7°), Vel: lin=-0.00, ang=0.34, Seq: 0
+[01:40:41] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.917rad (109.8°), Vel: lin=-0.00, ang=0.36, Seq: 0
+01:40:41,45,-0.452,1.711,1.999,2,-10,0.433,0.476,0.272,0.900
+[01:40:41] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.999rad (114.5°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:40:41] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.999rad (114.5°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:40:41] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.081rad (119.2°), Vel: lin=-0.00, ang=0.30, Seq: 0
+[01:40:41] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.089rad (119.7°), Vel: lin=-0.00, ang=0.32, Seq: 0
+[01:40:41] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.121rad (121.5°), Vel: lin=-0.00, ang=0.35, Seq: 0
+[01:40:42] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.239rad (128.3°), Vel: lin=-0.00, ang=0.37, Seq: 0
+[01:40:42] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.253rad (129.1°), Vel: lin=-0.00, ang=0.35, Seq: 0
+01:40:42,46,-0.452,1.711,2.373,2,-10,0.624,1.036,0.537,0.350
+[01:40:42] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.374rad (136.0°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:40:42] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.375rad (136.1°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:40:42] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.421rad (138.7°), Vel: lin=-0.00, ang=0.21, Seq: 0
+[01:40:43] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.570rad (147.2°), Vel: lin=-0.00, ang=0.34, Seq: 0
+[01:40:43] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.626rad (150.4°), Vel: lin=-0.00, ang=0.39, Seq: 0
+[01:40:43] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.709rad (155.2°), Vel: lin=-0.00, ang=0.35, Seq: 0
+[01:40:43] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.713rad (155.4°), Vel: lin=-0.00, ang=0.32, Seq: 0
+[01:40:43] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.742rad (157.1°), Vel: lin=-0.00, ang=0.00, Seq: 0
+01:40:43,47,-0.452,1.711,2.743,2,-10,0.587,0.944,0.556,0.272
+01:40:45,48,-0.452,1.711,3.117,2,-10,0.362,0.400,0.660,0.294
+[01:40:45] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 3.140rad (179.9°), Vel: lin=-0.00, ang=0.11, Seq: 0
+[01:40:45] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -3.112rad (-178.3°), Vel: lin=-0.00, ang=0.20, Seq: 0
+[01:40:46] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.818rad (-161.5°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+01:40:46,49,-0.452,1.711,-2.818,2,-10,0.233,0.356,0.914,0.408
+[01:40:46] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.818rad (-161.5°), Vel: lin=-0.00, ang=0.00, Seq: 0
+01:40:46,50,-0.452,1.711,-2.818,2,,0.229,0.373,0.890,0.439
+[01:40:47] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.675rad (-153.3°), Vel: lin=-0.00, ang=0.43, Seq: 0
+[01:40:47] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.623rad (-150.3°), Vel: lin=-0.00, ang=0.36, Seq: 0
+[01:40:47] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.599rad (-148.9°), Vel: lin=-0.00, ang=0.34, Seq: 0
+[01:40:47] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.597rad (-148.8°), Vel: lin=-0.00, ang=0.33, Seq: 0
+[01:40:47] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.565rad (-146.9°), Vel: lin=-0.00, ang=0.35, Seq: 0
+01:40:47,50,-0.452,1.711,-2.441,2,-10,0.442,0.575,0.494,0.960
+[01:40:47] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.437rad (-139.7°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:40:47] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.437rad (-139.6°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:40:48] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.436rad (-139.6°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:40:49] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.073rad (-118.8°), Vel: lin=-0.00, ang=0.00, Seq: 0
+01:40:49,51,-0.452,1.711,-2.069,2,-10,0.568,0.631,0.281,0.957
+[01:40:49] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.068rad (-118.5°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:40:49] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -1.955rad (-112.0°), Vel: lin=-0.00, ang=0.31, Seq: 0
+[01:40:49] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -1.872rad (-107.3°), Vel: lin=-0.00, ang=0.42, Seq: 0
+[01:40:50] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -1.820rad (-104.3°), Vel: lin=-0.00, ang=0.33, Seq: 0
+[01:40:50] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -1.719rad (-98.5°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:40:50] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -1.716rad (-98.3°), Vel: lin=-0.00, ang=0.00, Seq: 0
+01:40:50,52,-0.452,1.711,-1.716,2,-10,0.626,0.429,0.295,0.432
+[01:40:50] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -1.716rad (-98.3°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:40:50] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -1.653rad (-94.7°), Vel: lin=-0.00, ang=0.33, Seq: 0
+[01:40:50] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -1.631rad (-93.5°), Vel: lin=-0.00, ang=0.36, Seq: 0
+[01:40:51] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -1.621rad (-92.9°), Vel: lin=-0.00, ang=0.35, Seq: 0
+[01:40:51] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -1.602rad (-91.8°), Vel: lin=-0.00, ang=0.36, Seq: 0
+[01:40:51] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -1.580rad (-90.5°), Vel: lin=-0.00, ang=0.39, Seq: 0
+[01:40:51] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -1.537rad (-88.1°), Vel: lin=-0.00, ang=0.38, Seq: 0
+[01:40:51] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -1.483rad (-84.9°), Vel: lin=-0.00, ang=0.37, Seq: 0
+[01:40:51] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -1.436rad (-82.3°), Vel: lin=-0.00, ang=0.37, Seq: 0
+[01:40:51] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -1.391rad (-79.7°), Vel: lin=-0.00, ang=0.42, Seq: 0
+[01:40:51] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -1.344rad (-77.0°), Vel: lin=-0.00, ang=0.00, Seq: 0
+01:40:51,53,-0.452,1.711,-1.329,2,-5,1.019,0.249,0.384,0.332
+[01:40:52] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -1.328rad (-76.1°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:40:52] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -1.224rad (-70.1°), Vel: lin=-0.00, ang=0.33, Seq: 0
+01:40:53,54,-0.452,1.711,-0.959,2,-10,0.733,0.305,0.832,0.519
+[01:40:53] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -0.826rad (-47.3°), Vel: lin=-0.00, ang=0.36, Seq: 0
+[01:40:53] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -0.821rad (-47.0°), Vel: lin=-0.00, ang=0.34, Seq: 0
+[01:40:54] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -0.585rad (-33.5°), Vel: lin=-0.00, ang=0.00, Seq: 0
+01:40:54,55,-0.452,1.711,-0.585,2,-10,0.312,0.553,1.081,0.625
+[01:40:54] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -0.582rad (-33.4°), Vel: lin=-0.00, ang=0.01, Seq: 0
+[01:40:54] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -0.550rad (-31.5°), Vel: lin=-0.00, ang=0.18, Seq: 0
+[01:40:54] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -0.498rad (-28.6°), Vel: lin=-0.00, ang=0.35, Seq: 0
+[01:40:55] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -0.441rad (-25.2°), Vel: lin=-0.00, ang=0.39, Seq: 0
+[01:40:55] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -0.278rad (-15.9°), Vel: lin=-0.00, ang=0.45, Seq: 0
+01:40:55,56,-0.452,1.711,-0.235,2,-10,0.297,0.573,0.637,0.461
+[01:40:55] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -0.234rad (-13.4°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:40:55] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -0.225rad (-12.9°), Vel: lin=-0.00, ang=0.05, Seq: 0
+[01:40:56] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -0.191rad (-11.0°), Vel: lin=-0.00, ang=0.22, Seq: 0
+[01:40:56] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -0.113rad (-6.4°), Vel: lin=-0.00, ang=0.34, Seq: 0
+[01:40:56] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -0.061rad (-3.5°), Vel: lin=-0.00, ang=0.31, Seq: 0
+[01:40:56] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 0.082rad (4.7°), Vel: lin=-0.00, ang=0.43, Seq: 0
+01:40:56,57,-0.452,1.711,0.107,2,-10,0.347,0.741,0.327,0.250
+[01:40:56] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 0.106rad (6.1°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:40:57] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 0.107rad (6.1°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:40:57] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 0.401rad (23.0°), Vel: lin=-0.00, ang=0.37, Seq: 0
+[01:40:58] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 0.450rad (25.8°), Vel: lin=-0.00, ang=0.36, Seq: 0
+01:40:58,58,-0.452,1.711,0.477,2,-10,0.656,0.898,0.477,0.255
+[01:40:58] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 0.478rad (27.4°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:40:58] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 0.482rad (27.6°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:40:58] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 0.555rad (31.8°), Vel: lin=-0.00, ang=0.35, Seq: 0
+[01:40:58] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 0.566rad (32.4°), Vel: lin=-0.00, ang=0.39, Seq: 0
+[01:40:58] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 0.654rad (37.4°), Vel: lin=-0.00, ang=0.38, Seq: 0
+[01:40:59] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 0.733rad (42.0°), Vel: lin=-0.00, ang=0.32, Seq: 0
+[01:40:59] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 0.822rad (47.1°), Vel: lin=-0.00, ang=0.43, Seq: 0
+01:40:59,59,-0.452,1.711,0.869,2,-10,1.104,0.362,0.633,0.529
+01:40:59,60,-0.452,1.711,0.871,2,,1.119,0.319,0.633,0.545
+[01:40:59] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 0.910rad (52.1°), Vel: lin=-0.00, ang=0.19, Seq: 0
+[01:40:59] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 0.974rad (55.8°), Vel: lin=-0.00, ang=0.36, Seq: 0
+[01:41:00] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.076rad (61.6°), Vel: lin=-0.00, ang=0.34, Seq: 0
+[01:41:00] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.097rad (62.8°), Vel: lin=-0.00, ang=0.34, Seq: 0
+[01:41:00] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.151rad (65.9°), Vel: lin=-0.00, ang=0.35, Seq: 0
+[01:41:00] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.209rad (69.2°), Vel: lin=-0.00, ang=0.36, Seq: 0
+[01:41:00] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.233rad (70.7°), Vel: lin=-0.00, ang=0.00, Seq: 0
+01:41:00,60,-0.452,1.711,1.237,2,-8,0.702,0.286,0.532,0.547
+[01:41:00] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.238rad (70.9°), Vel: lin=-0.00, ang=0.01, Seq: 0
+[01:41:01] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.374rad (78.7°), Vel: lin=-0.00, ang=0.38, Seq: 0
+[01:41:01] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.381rad (79.1°), Vel: lin=-0.00, ang=0.38, Seq: 0
+[01:41:01] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.406rad (80.5°), Vel: lin=-0.00, ang=0.33, Seq: 0
+[01:41:01] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.455rad (83.4°), Vel: lin=-0.00, ang=0.33, Seq: 0
+[01:41:01] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.512rad (86.7°), Vel: lin=-0.00, ang=0.41, Seq: 0
+[01:41:01] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.518rad (87.0°), Vel: lin=-0.00, ang=0.41, Seq: 0
+[01:41:01] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.573rad (90.1°), Vel: lin=-0.00, ang=0.32, Seq: 0
+[01:41:01] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.579rad (90.5°), Vel: lin=-0.00, ang=0.32, Seq: 0
+[01:41:01] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.582rad (90.6°), Vel: lin=-0.00, ang=0.00, Seq: 0
+01:41:01,61,-0.452,1.711,1.599,2,-10,0.348,0.308,0.272,0.684
+[01:41:01] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.599rad (91.6°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:41:02] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.846rad (105.8°), Vel: lin=-0.00, ang=0.40, Seq: 0
+[01:41:03] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.894rad (108.5°), Vel: lin=-0.00, ang=0.27, Seq: 0
+[01:41:03] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.897rad (108.7°), Vel: lin=-0.00, ang=0.29, Seq: 0
+01:41:03,62,-0.452,1.711,1.970,2,-10,0.451,0.545,0.294,0.891
+[01:41:03] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.969rad (112.8°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:41:03] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.969rad (112.8°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:41:03] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 1.969rad (112.8°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:41:03] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.000rad (114.6°), Vel: lin=-0.00, ang=0.14, Seq: 0
+[01:41:03] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.045rad (117.1°), Vel: lin=-0.00, ang=0.26, Seq: 0
+[01:41:04] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.135rad (122.3°), Vel: lin=-0.00, ang=0.40, Seq: 0
+[01:41:04] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.219rad (127.1°), Vel: lin=-0.00, ang=0.32, Seq: 0
+[01:41:04] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.277rad (130.5°), Vel: lin=-0.00, ang=0.43, Seq: 0
+01:41:04,63,-0.452,1.711,2.329,2,-10,0.601,0.982,0.516,0.426
+[01:41:05] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.522rad (144.5°), Vel: lin=-0.00, ang=0.37, Seq: 0
+01:41:05,64,-0.452,1.711,2.702,2,-10,0.603,0.968,0.553,0.270
+[01:41:06] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.703rad (154.9°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:41:06] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.716rad (155.6°), Vel: lin=-0.00, ang=0.07, Seq: 0
+[01:41:06] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.791rad (159.9°), Vel: lin=-0.00, ang=0.25, Seq: 0
+[01:41:06] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.847rad (163.1°), Vel: lin=-0.00, ang=0.32, Seq: 0
+[01:41:06] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.878rad (164.9°), Vel: lin=-0.00, ang=0.34, Seq: 0
+[01:41:06] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.960rad (169.6°), Vel: lin=-0.00, ang=0.28, Seq: 0
+[01:41:07] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.972rad (170.3°), Vel: lin=-0.00, ang=0.22, Seq: 0
+[01:41:07] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 2.990rad (171.3°), Vel: lin=-0.00, ang=0.00, Seq: 0
+01:41:07,65,-0.452,1.711,3.014,2,-10,0.418,0.516,0.616,0.280
+[01:41:07] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 3.023rad (173.2°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:41:07] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 3.038rad (174.0°), Vel: lin=-0.00, ang=0.03, Seq: 0
+[01:41:07] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: 3.124rad (179.0°), Vel: lin=-0.00, ang=0.20, Seq: 0
+01:41:08,66,-0.452,1.711,-2.859,2,-10,0.243,0.341,0.924,0.366
+[01:41:08] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.859rad (-163.8°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:41:08] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.859rad (-163.8°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:41:08] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.859rad (-163.8°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:41:08] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.857rad (-163.7°), Vel: lin=-0.00, ang=0.01, Seq: 0
+[01:41:09] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.811rad (-161.1°), Vel: lin=-0.00, ang=0.24, Seq: 0
+[01:41:09] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.755rad (-157.8°), Vel: lin=-0.00, ang=0.40, Seq: 0
+[01:41:09] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.665rad (-152.7°), Vel: lin=-0.00, ang=0.30, Seq: 0
+[01:41:09] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.565rad (-146.9°), Vel: lin=-0.00, ang=0.36, Seq: 0
+01:41:09,67,-0.452,1.711,-2.514,2,-10,0.390,0.539,0.578,0.869
+[01:41:09] ODOM Callback (FRESH): Pos(-0.452, 1.711), Yaw: -2.514rad (-144.1°), Vel: lin=-0.00, ang=-0.00, Seq: 0

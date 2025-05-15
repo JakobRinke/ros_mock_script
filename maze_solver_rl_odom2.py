@@ -198,9 +198,34 @@ class EnhancedRLAgent:
                     print("🔄 Upgrading Q-table to enhanced discretization with orientation")
                     np.save(OLD_Q_TABLE_FILE, existing_table)
                     self.q_table = np.zeros((self.num_states, self.num_actions), dtype=np.float32)
-                    # Transfer knowledge where possible (complex mapping)
-                    # This is simplified - a more advanced mapping would be better
-                    print("🧠 Basic knowledge transfer - previous knowledge will influence exploration")
+                    
+                    # Implement the actual transfer logic
+                    print("⚙️ Transferring knowledge from original state space to enhanced state space")
+                    for old_front in range(3):
+                        for old_right in range(3):
+                            for old_left in range(3):
+                                for old_back in range(3):
+                                    # Map old 3-bin states to new 5-bin states
+                                    new_front = min(4, old_front * 2)
+                                    new_right = min(4, old_right * 2)
+                                    new_left = min(4, old_left * 2)
+                                    new_back = min(4, old_back * 2)
+                                    
+                                    # Calculate old index in original format
+                                    old_idx = (old_front * 27 + old_right * 9 + old_left * 3 + old_back)
+                                    
+                                    # Map to all orientations in new format (duplicate knowledge across orientations)
+                                    for new_orient in range(4):
+                                        new_idx = (new_front * self.num_distance_bins**3 * self.num_orientations + 
+                                                  new_right * self.num_distance_bins**2 * self.num_orientations + 
+                                                  new_left * self.num_distance_bins * self.num_orientations + 
+                                                  new_back * self.num_orientations + new_orient)
+                                        
+                                        # Transfer Q-values with some decay for uncertainty in orientation
+                                        for action in range(4):
+                                            self.q_table[new_idx, action] = existing_table[old_idx, action] * 0.7
+                    
+                    print("🧠 Knowledge transferred to enhanced state space")
                     
                 elif existing_table.shape == (324, 4):  # Previous 3^4 * 4 states with orientation
                     print("🔄 Upgrading Q-table from 3-bin to 5-bin discretization")
@@ -264,10 +289,19 @@ class EnhancedRLAgent:
 
     def save_q_table(self):
         try:
-            np.save(Q_TABLE_FILE, self.q_table)
+            # Create a separate copy of the q_table to avoid any reference to ROS objects
+            q_table_copy = self.q_table.copy()
+            np.save(Q_TABLE_FILE, q_table_copy)
             print("💾 Q-table saved")
         except Exception as e:
             print(f"❌ Error saving Q-table: {e}")
+            # Try alternate simpler saving method if the first fails
+            try:
+                # Save using a simpler method that avoids pickling issues
+                np.savetxt(f"{Q_TABLE_FILE}.txt", self.q_table.reshape(self.num_states, self.num_actions))
+                print("💾 Q-table saved in text format as backup")
+            except Exception as e2:
+                print(f"❌ Error saving Q-table in alternate format: {e2}")
 
 # Basic movement functions
 def get_distance(lidar: LidarFrame, angle, spread):
@@ -402,7 +436,7 @@ def hybrid_rl_wall_follower(client, max_steps=MAX_STEPS):
             front_dist = get_distance(lidar, FRONT_ANGLE, FRONT_SPREAD)
             if front_dist < 0.12:
                 print("⚠️ Emergency backup - too close to wall")
-                movement = move_backward_a_bit(client)
+                _ = move_backward_a_bit(client)  # Use _ to explicitly show we're ignoring return value
                 position.update()
                 lidar = get_lidar_data_once(client, True)
 
@@ -431,7 +465,7 @@ def hybrid_rl_wall_follower(client, max_steps=MAX_STEPS):
                 right_dist = get_distance(lidar, RIGHT_ANGLE, RIGHT_SPREAD)
                 if is_front_clear(lidar) and right_dist < RIGHT_OPEN_THRESHOLD and right_dist > 0.05:
                     action = 0
-                    did_correct, movement = maintain_wall_distance(client, lidar)
+                    did_correct, _ = maintain_wall_distance(client, lidar)  # Use _ to explicitly show we're ignoring return value
                     if did_correct:
                         position.update()
                         new_lidar = get_lidar_data_once(client, True)
@@ -478,7 +512,7 @@ def hybrid_rl_wall_follower(client, max_steps=MAX_STEPS):
                     right_dist = get_distance(lidar, RIGHT_ANGLE, RIGHT_SPREAD)
                     if is_front_clear(lidar) and right_dist < RIGHT_OPEN_THRESHOLD and right_dist > 0.05:
                         action = 0
-                        did_correct, movement = maintain_wall_distance(client, lidar)
+                        did_correct, _ = maintain_wall_distance(client, lidar)  # Use _ to explicitly show we're ignoring return value
                         if did_correct:
                             position.update()
                             new_lidar = get_lidar_data_once(client, True)
@@ -511,7 +545,8 @@ def hybrid_rl_wall_follower(client, max_steps=MAX_STEPS):
                     right_turn_counter = 0
 
             if not use_rl_action or prev_action != action:
-                movement = execute_action(client, action)
+                # Use _ to explicitly show we're ignoring return value
+                _ = execute_action(client, action)
                 position.update()
 
             new_lidar = get_lidar_data_once(client, True)
@@ -549,9 +584,19 @@ def hybrid_rl_wall_follower(client, max_steps=MAX_STEPS):
         position.odom.unsubscribe()
         coverage = len(states_visited) / agent.num_states * 100
         print(f"🔍 Final state coverage: {len(states_visited)}/{agent.num_states} states ({coverage:.1f}%)")
+    except Exception as e:
+        print(f"❌ Error during execution: {e}")
+    finally:
+        # Always try to save and clean up properly
+        try:
+            agent.save_q_table()
+        except:
+            pass
+        try:
+            position.odom.unsubscribe()
+        except:
+            pass
     
-    agent.save_q_table()
-    position.odom.unsubscribe()
     print(f"🏁 Run completed: {steps} steps, Total reward: {total_reward:.1f}")
     if learning_active:
         print("🎓 Learning was activated during this run!")

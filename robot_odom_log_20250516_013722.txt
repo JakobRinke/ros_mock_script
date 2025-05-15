@@ -1,0 +1,31 @@
+Timestamp,Step,X,Y,Orientation,Action,Reward,FrontDist,RightDist,LeftDist,BackDist
+01:37:23,0,0.000,0.000,0.000,,,0.897,0.255,0.397,0.324
+[01:37:23] ODOM Callback: Pos(0.213, -0.426), Yaw: -0.304rad (-17.4°), Vel: lin=0.20, ang=0.38, Seq: 0
+[01:37:23] ODOM Callback: Pos(0.217, -0.427), Yaw: -0.300rad (-17.2°), Vel: lin=0.20, ang=0.35, Seq: 0
+[01:37:23] ODOM Callback: Pos(0.228, -0.431), Yaw: -0.288rad (-16.5°), Vel: lin=0.20, ang=0.28, Seq: 0
+[01:37:23] ODOM Callback: Pos(0.235, -0.433), Yaw: -0.279rad (-16.0°), Vel: lin=0.20, ang=0.27, Seq: 0
+01:37:23,0,0.278,-0.444,-0.264,0,5.6215020752513105,0.447,0.419,0.362,0.461
+[01:37:23] ODOM Periodic Check: Pos(0.278, -0.444), Yaw: -0.264rad (-15.1°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:37:23] ODOM Callback: Pos(0.278, -0.444), Yaw: -0.260rad (-14.9°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:37:24] ODOM Callback: Pos(0.278, -0.444), Yaw: -0.260rad (-14.9°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:37:24] ODOM Callback: Pos(0.278, -0.444), Yaw: -0.260rad (-14.9°), Vel: lin=-0.00, ang=-0.01, Seq: 0
+[01:37:24] ODOM Callback: Pos(0.278, -0.444), Yaw: -0.358rad (-20.5°), Vel: lin=-0.00, ang=-0.28, Seq: 0
+[01:37:24] ODOM Callback: Pos(0.278, -0.444), Yaw: -0.421rad (-24.1°), Vel: lin=-0.00, ang=-0.40, Seq: 0
+01:37:25,1,0.278,-0.444,-0.508,1,0.0003723508973053171,0.720,0.372,0.268,0.408
+[01:37:25] ODOM Callback: Pos(0.278, -0.444), Yaw: -0.507rad (-29.1°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:37:26] ODOM Callback: Pos(0.278, -0.444), Yaw: -0.743rad (-42.6°), Vel: lin=-0.00, ang=-0.28, Seq: 0
+01:37:26,2,0.278,-0.444,-0.837,1,5.523047522541031e-05,0.538,0.385,0.237,0.763
+[01:37:26] ODOM Callback: Pos(0.278, -0.444), Yaw: -0.840rad (-48.1°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:37:26] ODOM Callback: Pos(0.278, -0.444), Yaw: -0.843rad (-48.3°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:37:26] ODOM Callback: Pos(0.278, -0.444), Yaw: -0.843rad (-48.3°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:37:26] ODOM Callback: Pos(0.278, -0.444), Yaw: -0.843rad (-48.3°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:37:27] ODOM Callback: Pos(0.278, -0.444), Yaw: -1.167rad (-66.9°), Vel: lin=-0.00, ang=-0.45, Seq: 0
+01:37:27,3,0.278,-0.444,-1.218,1,-6.999957242934843,0.501,0.658,0.243,1.118
+[01:37:28] ODOM Callback: Pos(0.278, -0.444), Yaw: -1.218rad (-69.8°), Vel: lin=-0.00, ang=-0.00, Seq: 0
+[01:37:28] ODOM Callback: Pos(0.278, -0.444), Yaw: -1.217rad (-69.7°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:37:28] ODOM Callback: Pos(0.278, -0.444), Yaw: -1.217rad (-69.7°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:37:28] ODOM Callback: Pos(0.278, -0.444), Yaw: -1.214rad (-69.6°), Vel: lin=-0.00, ang=0.01, Seq: 0
+[01:37:28] ODOM Callback: Pos(0.278, -0.444), Yaw: -1.204rad (-69.0°), Vel: lin=-0.00, ang=0.07, Seq: 0
+01:37:29,4,0.278,-0.444,-1.059,2,-9.999980403610534,0.510,0.659,0.240,1.117
+[01:37:29] ODOM Callback: Pos(0.278, -0.444), Yaw: -1.055rad (-60.4°), Vel: lin=-0.00, ang=0.00, Seq: 0
+[01:37:29] ODOM Callback: Pos(0.278, -0.444), Yaw: -0.969rad (-55.5°), Vel: lin=-0.00, ang=0.34, Seq: 0

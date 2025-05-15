@@ -15,7 +15,7 @@ FRONT_ANGLE = 0
 FRONT_SPREAD = math.radians(30)  # +-30 Grad
 RIGHT_ANGLE = 3 * math.pi / 2
 RIGHT_SPREAD = math.radians(30)  # +-30 Grad
-DISTANCE_THRESHOLD = 0.24  # Mindestabstand in Meter
+DISTANCE_THRESHOLD = 0.3  # Mindestabstand in Meter
 RIGHT_OPEN_THRESHOLD = 0.3  # Mehr Abstand für rechts nötig
 
 # Kreisfahrt-Erkennung
