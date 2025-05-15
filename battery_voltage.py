@@ -15,6 +15,10 @@ class SimpleBatteryMonitor:
         self.CONSERVATIVE_VOLTAGE = 7.0
         self.EFFICIENT_VOLTAGE = 7.6
         self.MAX_VOLTAGE = 8.4  # fully charged (4.2V/cell)
+        
+        # Battery status storage
+        self.current_voltage = None
+        self.current_percentage = None
         self.current_mode = "NORMAL"
         
     def connect(self):
@@ -39,19 +43,40 @@ class SimpleBatteryMonitor:
                 'std_msgs/String'
             )
             self.power_mode_pub.advertise()
+            
+            # Initialize battery status
+            self.initialize_battery_status()
             return True
         else:
             print("Failed to connect to ROS bridge.")
             return False
             
+    def initialize_battery_status(self):
+        """Request and display initial battery status"""
+        print("Initializing battery status...")
+        # Wait briefly for first message
+        start_time = time.time()
+        timeout = 5.0  # seconds
+        while self.current_voltage is None and time.time() - start_time < timeout:
+            time.sleep(0.1)
+        
+        if self.current_voltage is not None:
+            print(f"Initial Battery Status - Voltage: {self.current_voltage:.2f} V, "
+                  f"Battery: {self.current_percentage:.1f}%, Mode: {self.current_mode}")
+        else:
+            print("Warning: Could not retrieve initial battery status within timeout")
+    
     def battery_callback(self, message):
         # Convert from millivolts to volts
         voltage_mv = message['data']
         voltage = voltage_mv / 1000.0
-        percentage = self.convert_voltage_to_percentage(voltage)
+        
+        # Update stored status
+        self.current_voltage = voltage
+        self.current_percentage = self.convert_voltage_to_percentage(voltage)
         new_mode = self.determine_power_mode(voltage)
         
-        print(f"Voltage: {voltage:.2f} V, Battery: {percentage:.1f}%, Mode: {new_mode}")
+        print(f"Voltage: {self.current_voltage:.2f} V, Battery: {self.current_percentage:.1f}%, Mode: {new_mode}")
         
         if new_mode != self.current_mode:
             self.current_mode = new_mode
@@ -107,7 +132,6 @@ if __name__ == "__main__":
     monitor = SimpleBatteryMonitor()
     if monitor.connect():
         try:
-            # monitor.list_topics()
             monitor.run()
         except Exception as e:
             print(f"Error: {e}")
