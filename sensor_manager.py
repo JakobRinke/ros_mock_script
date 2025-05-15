@@ -6,6 +6,7 @@ from sensors import alcohol, magnetic, ultrasonic, vibration
 from threading import Lock
 import time
 import battery_voltage as battery_voltage
+import traceback
 import RPi.GPIO as GPIO
 import heiner_comunication.topic_getter as topic_getter
 
@@ -211,6 +212,7 @@ def write_into_ros(client: roslibpy.Ros):
 
         except Exception as e:
             print(f"Error in write_into_ros: {e}")
+            traceback.print_exc()
         time.sleep(0.1)
     try:
         top.unadvertise()
