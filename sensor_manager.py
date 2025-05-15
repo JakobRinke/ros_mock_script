@@ -101,10 +101,13 @@ def threadloop(client: roslibpy.Ros):
     global CURRENT_MANAGER
     while CURRENT_CLIENT is not None:
         print("Threadloop")
-        remeasure_data(client)
-        CURRENT_MANAGER.get_data()
-        # Sleep for a short duration to avoid busy waiting
-        save_current_data_to_csv()
+        try:
+            remeasure_data(client)
+            CURRENT_MANAGER.get_data()
+            # Sleep for a short duration to avoid busy waiting
+            save_current_data_to_csv()
+        except Exception as e:
+            print(f"Error in threadloop: {e}")
         time.sleep(1)
 
 
