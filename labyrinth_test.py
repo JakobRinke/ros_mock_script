@@ -12,8 +12,8 @@ client.run()
 
 if client.is_connected:
     
-    go_through_corridor_center(client=client, base_speed=0.3, duration=10)  # Bewege dich durch den Korridor   
-
+    #go_through_corridor_center(client=client, base_speed=0.3, duration=10)  # Bewege dich durch den Korridor   
+    go_through_corridor_left_wall_follow(client, 0.3, 15)  # Bewege dich bis zur Entscheidung
 
 
 

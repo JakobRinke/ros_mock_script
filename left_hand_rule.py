@@ -7,8 +7,13 @@ from heiner_comunication.motor_control import move, rotate
 # --- Konfiguration ---
 BASE_SPEED = 0.2
 ROTATE_SPEED = 1.0
-TURN_DURATION = 1.0
-WALL_THRESHOLD = 0.35  # Abstand, ab dem eine Wand "da" ist
+TURN_DURATION = 0.55
+WALL_THRESHOLD_FRONT = 0.4
+WALL_THRESHOLD_SIDE = 0.3
+PREFERRED_LEFT_DISTANCE = 0.25
+ANGLE_CORRECTION_FACTOR = 0.5
+CORRECTION_EVERY_N_STEPS = 3
+MAX_VALID_LEFT_DISTANCE = 0.6  # Neu: maximale akzeptierte Linkswand-Distanz
 
 # --- Bewegung ---
 def drive_forward(client, duration=0.25):
@@ -18,54 +23,62 @@ def drive_forward(client, duration=0.25):
 def turn_left(client):
     print("↪️ Links abbiegen")
     rotate(client=client, speed=ROTATE_SPEED, timeout=TURN_DURATION)
-    #drive_forward(client, duration=0.2)
 
-def turn_right(client):
-    print("↩️ Rechts abbiegen")
-    rotate(client=client, speed=-ROTATE_SPEED, timeout=TURN_DURATION)
-    drive_forward(client, duration=0.1)
+def angle_correction(client, delta):
+    angle = max(min(delta, 0.2), -0.2) * ANGLE_CORRECTION_FACTOR
+    print(f"🔧 Y Korrektur: {angle:.3f}")
+    move(client=client, x=0, y=angle, timeout=0.2)
+    rotate(client=client, speed=ROTATE_SPEED, timeout=0.3)
 
-# --- Lidar-Erfassung ---
+# --- Lidar-Auswertung ---
 def get_distances(lidar):
     return {
-        # FRONT
-        'front_narrow': lidar.get_value_around_angle_min(0, math.pi / 12),   # 15°
-        'front_wide':   lidar.get_value_around_angle_min(0, math.pi / 4),    # 45°
-
-        # LEFT
-        'left_narrow':  lidar.get_value_around_angle_min(-math.pi / 2, math.pi / 12),
-        'left_wide':    lidar.get_value_around_angle_min(-math.pi / 2, math.pi / 4),
-
-        # Extra für Entscheidung
-        'light_left':   lidar.get_value_around_angle_min(-math.pi / 4, math.pi / 6),
-        'hard_left':    lidar.get_value_around_angle_min(-3 * math.pi / 4, math.pi / 6),
+        'front': lidar.get_value_around_angle_min(0, math.pi / 8),     # 30°
+        'left':  lidar.get_value_around_angle_min(math.pi / 2, math.pi / 5),  # 30°
     }
 
-# --- Entscheidungslogik ---
-def is_wall(dist_min):
-    return dist_min < WALL_THRESHOLD and dist_min > 0.01
-
-def is_left_open(dist):
-    # Nimmt das Minimum aus zwei Scans
-    left_min = min(dist['left_narrow'], dist['left_wide'], dist['light_left'], dist['hard_left'])
-    return not is_wall(left_min)
-
-def is_front_open(dist):
-    front_min = min(dist['front_narrow'], dist['front_wide'])
-    return not is_wall(front_min)
+def is_wall(dist, threshold):
+    return dist < threshold and dist > 0.01
 
 # --- Hauptlogik ---
 def main(client):
+    step = 0
+    left_turns_in_a_row = 0
+
     while True:
         lidar = get_lidar_data_once(client, True)
         dist = get_distances(lidar)
 
-        if is_left_open(dist):
+        front_blocked = is_wall(dist['front'], WALL_THRESHOLD_FRONT)
+
+        # Linkswand verloren?
+        if dist['left'] > MAX_VALID_LEFT_DISTANCE or dist['left'] < 0.01:
+            print("🔄 Wand links verloren, leichte Linksdrehung zur Neuorientierung")
+            rotate(client=client, speed=ROTATE_SPEED * 0.5, timeout=0.3)
+            continue
+
+        left_open = not is_wall(dist['left'], WALL_THRESHOLD_SIDE)
+
+        if left_open and left_turns_in_a_row < 3:
             turn_left(client)
-        elif is_front_open(dist):
+            left_turns_in_a_row += 1
+            if left_turns_in_a_row == 3:
+                drive_forward(client)
+
+        elif not front_blocked:
+            if step % CORRECTION_EVERY_N_STEPS == 0:
+                delta = dist['left'] - PREFERRED_LEFT_DISTANCE
+                if abs(delta) < 0.3:
+                    angle_correction(client, delta)
             drive_forward(client)
+            left_turns_in_a_row = 0
+            step += 1
+
         else:
-            turn_right(client)
+            turn_left(client)
+            left_turns_in_a_row += 1
+            if left_turns_in_a_row == 3:
+                drive_forward(client)
 
         time.sleep(0.05)
 
