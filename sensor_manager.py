@@ -71,10 +71,10 @@ class SensorManager:
 
 def remeasure_data(client: roslibpy.Ros) -> SensorData:
     # Get the sensor data
-    magnetic_field = magnetic.magnetic(client)
-    alcohol_v = alcohol.alcohol(client)
-    ultrasonic_v = ultrasonic.ultrasonic(client)
-    vibration_v = vibration.vibration(client)
+    magnetic_field = magnetic.magnetic()
+    alcohol_v = alcohol.alcohol()
+    ultrasonic_v = ultrasonic.ultrasonic()
+    vibration_v = vibration.vibration()
     odometry_v = get_odometry_data_once(client)
     BATTERY_VOLTAE_INST.initialize_battery_status()
     voltage = BATTERY_VOLTAE_INST.current_voltage
@@ -121,6 +121,9 @@ if __name__ == "__main__":
             while True:
                 time.sleep(5)
                 s = get_current_data()
+                if s is None:
+                    print("No data available")
+                    continue
                 print(f"SensorData: {s.battery_percentage}")
 
         else:
