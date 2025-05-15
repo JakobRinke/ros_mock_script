@@ -105,7 +105,10 @@ def save_current_data_to_csv():
     if CURRENT_MANAGER is None:
         raise Exception("SensorManager not started")
     with open(CURRENT_CSV_FILE, "a") as f:
+        print("CURRENT_CSV_FILE", CURRENT_CSV_FILE)
         f.write(CURRENT_MANAGER.to_csv_string())
+        f.flush()
+    
 
 def threadloop(client: roslibpy.Ros):
     global CURRENT_MANAGER
