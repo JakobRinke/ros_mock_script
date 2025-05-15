@@ -12,7 +12,7 @@ SENSOR_DATA_CSV_FOLDER = "/home/pi/hard_and_soft/hard-and-soft-2025-frontend/sen
 CURRENT_THREAD = None
 CURRENT_CLIENT = None
 CURRENT_MANAGER = None
-CURRENT_CSV_FILE = None
+CURRENT_CSV_FILE:str = None
 BATTERY_VOLTAE_INST = None
 def start(client: roslibpy.Ros):
     global CURRENT_THREAD, CURRENT_CLIENT, CURRENT_MANAGER, CURRENT_CSV_FILE, BATTERY_VOLTAE_INST
@@ -100,6 +100,7 @@ def save_current_data_to_csv():
 def threadloop(client: roslibpy.Ros):
     global CURRENT_MANAGER
     while CURRENT_CLIENT is not None:
+        print("Threadloop")
         remeasure_data(client)
         CURRENT_MANAGER.get_data()
         # Sleep for a short duration to avoid busy waiting
