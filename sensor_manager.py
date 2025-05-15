@@ -76,9 +76,9 @@ def remeasure_data(client: roslibpy.Ros) -> SensorData:
     ultrasonic_v = ultrasonic.ultrasonic(client)
     vibration_v = vibration.vibration(client)
     odometry_v = get_odometry_data_once(client)
-    bat = BATTERY_VOLTAE_INST.get_battery_status()
-    voltage = bat['voltage']
-    percentage = bat['percentage']
+    BATTERY_VOLTAE_INST.initialize_battery_status()
+    voltage = BATTERY_VOLTAE_INST.current_voltage
+    percentage = BATTERY_VOLTAE_INST.current_percentage
     CURRENT_MANAGER.update_data(SensorData(magnetic_field, alcohol_v, ultrasonic_v, vibration_v, odometry_v, voltage, percentage))
 
 
