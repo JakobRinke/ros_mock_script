@@ -14,15 +14,14 @@ CURRENT_THREAD = None
 CURRENT_CLIENT = None
 CURRENT_MANAGER = None
 CURRENT_CSV_FILE = None
-
-battery_volatage_inst = battery_voltage.BatteryMonitor()
-
+BATTERY_VOLTAE_INST = None
 def start(client: roslibpy.Ros):
-    global CURRENT_THREAD, CURRENT_CLIENT, CURRENT_MANAGER, CURRENT_CSV_FILE
+    global CURRENT_THREAD, CURRENT_CLIENT, CURRENT_MANAGER, CURRENT_CSV_FILE, BATTERY_VOLTAE_INST
     # Calibrate the sensor
     reset_odometry(client)
+    BATTERY_VOLTAE_INST = battery_voltage.BatteryMonitor(client)
     ultrasonic.ultrasonic_cal()
-    battery_volatage_inst.connect()
+    BATTERY_VOLTAE_INST.connect()
 
     if CURRENT_THREAD is not None:
         CURRENT_CLIENT = None
@@ -76,7 +75,7 @@ def remeasure_data(client: roslibpy.Ros) -> SensorData:
     ultrasonic_v = ultrasonic.ultrasonic(client)
     vibration_v = vibration.get_vibration_data_once(client)
     odometry_v = get_odometry_data_once(client)
-    bat = battery_volatage_inst.get_battery_status()
+    bat = BATTERY_VOLTAE_INST.get_battery_status()
     voltage = bat['voltage']
     percentage = bat['percentage']
     CURRENT_MANAGER.update_data(SensorData(magnetic_field, alcohol_v, ultrasonic_v, vibration_v, odometry_v, voltage, percentage))
