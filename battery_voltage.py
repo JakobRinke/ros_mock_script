@@ -109,6 +109,9 @@ class SimpleBatteryMonitor:
             print("Battery Monitor running. Press Ctrl+C to exit.")
             while self.client and self.client.is_connected:
                 time.sleep(1)
+                print(f"Current Voltage: {self.current_voltage:.2f} V, ")
+                print(f"Battery Percentage: {self.current_percentage:.1f}%, Mode: {self.current_mode}")
+                
         except KeyboardInterrupt:
             print("Battery Monitor stopped by user.")
         finally:
@@ -124,7 +127,9 @@ class SimpleBatteryMonitor:
             self.client.terminate()
 
 if __name__ == "__main__":
-    monitor = SimpleBatteryMonitor()
+    client = roslibpy.Ros(host='192.168.149.1', port=9091)
+    client.run()
+    monitor = SimpleBatteryMonitor(client)
     if monitor.connect():
         try:
             monitor.run()
