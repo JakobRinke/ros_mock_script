@@ -56,6 +56,8 @@ class SensorManager:
         self.data = None
 
     def update_data(self, data:SensorData):
+        print("Updating data")
+        print(data)
         with self.lock:
             self.data = data
     
