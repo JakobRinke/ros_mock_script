@@ -23,7 +23,7 @@ WRITE_FILE_THREAD:Thread = None
 WRITE_ROS_THREAD:Thread = None
 
 def start(client: roslibpy.Ros):
-    global CURRENT_THREAD, CURRENT_CLIENT, CURRENT_MANAGER, CURRENT_CSV_FILE, BATTERY_VOLTAE_INST
+    global CURRENT_THREAD, CURRENT_CLIENT, CURRENT_MANAGER, CURRENT_CSV_FILE, BATTERY_VOLTAE_INST, WRITE_FILE_THREAD, WRITE_ROS_THREAD
     # Calibrate the sensor
     ultrasonic.ultrasonic_cal()
     reset_odometry(client)
