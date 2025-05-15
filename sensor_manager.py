@@ -65,6 +65,12 @@ class SensorManager:
         with self.lock:
             return self.data
         
+    def to_csv_string(self) -> str:
+        with self.lock:
+            if self.data is None:
+                return ""
+            return f"{self.data.timestamp},{self.data.alcohol},{self.data.magnetic_field},{self.data.ultrasonic},{self.data.vibration},{self.data.x},{self.data.y},{self.data.battery_voltage},{self.data.battery_percentage}\n"
+        
    
 
 
