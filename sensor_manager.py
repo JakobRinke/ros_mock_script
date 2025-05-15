@@ -73,6 +73,7 @@ def remeasure_data(client: roslibpy.Ros) -> SensorData:
     # Get the sensor data
     magnetic_field = magnetic.magnetic()
     alcohol_v = alcohol.alcohol()
+    ultrasonic.ultrasonic_cal()
     ultrasonic_v = ultrasonic.ultrasonic()
     vibration_v = vibration.vibration()
     odometry_v = get_odometry_data_once(client)
