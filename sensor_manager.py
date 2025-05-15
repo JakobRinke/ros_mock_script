@@ -8,7 +8,7 @@ import time
 import simplified_battery_monitor as battery_voltage
 
 
-SENSOR_DATA_CSV_FOLDER = "/home/pi/hard_and_soft/hard-and-soft2025-frontend/sensor_data/log/"
+SENSOR_DATA_CSV_FOLDER = "/home/pi/hard_and_soft/hard-and-soft-2025-frontend/sensor_data/logs/"
 
 CURRENT_THREAD = None
 CURRENT_CLIENT = None
@@ -31,6 +31,7 @@ def start(client: roslibpy.Ros):
     CURRENT_THREAD = Thread(target=threadloop, args=(client,))
     CURRENT_CSV_FILE = SENSOR_DATA_CSV_FOLDER + time.strftime("%Y-%m-%d_%H-%M-%S") + ".csv"
     with open(CURRENT_CSV_FILE, "w") as f:
+        print("Creating CSV file")
         f.write("Timestamp,Alcohol,MagneticField,Ultrasonic,Vibration,X,Y,Battery Voltage, Battery %\n")
         f.flush()
     CURRENT_THREAD.start()
