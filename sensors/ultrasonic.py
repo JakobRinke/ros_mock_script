@@ -2,9 +2,6 @@ import RPi.GPIO as GPIO
 import time
 
 def ultrasonic_cal():
-    
-    GPIO.setmode(GPIO.BOARD)
-    
     TRIG = 18
     ECHO = 16
     
@@ -15,9 +12,6 @@ def ultrasonic_cal():
     time.sleep(2)
 
 def ultrasonic():
-
-    GPIO.setmode(GPIO.BOARD)
-    
     TRIG = 18
     ECHO = 16
     
@@ -44,6 +38,6 @@ def ultrasonic():
         distance = round(distance,2)
 
     finally:
-        GPIO.cleanup()
+        pass
 
     return distance

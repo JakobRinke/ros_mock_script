@@ -4,13 +4,12 @@ import time
 def alcohol():
     DIGITAL_INPUT=22
     
-    GPIO.setmode(GPIO.BOARD)
     GPIO.setup(DIGITAL_INPUT,GPIO.IN)
 
     try:
         result=1-GPIO.input(DIGITAL_INPUT)
 
     finally:
-        GPIO.cleanup()
+        pass
         
     return result
