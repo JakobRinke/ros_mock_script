@@ -104,6 +104,7 @@ def threadloop(client: roslibpy.Ros):
         print("Threadloop")
         try:
             print("Remeasuring data")
+            time.sleep(0.5)
             remeasure_data(client)
             print("Saving data to CSV")
             save_current_data_to_csv()
