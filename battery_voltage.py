@@ -2,10 +2,8 @@ import roslibpy
 import time
 
 class SimpleBatteryMonitor:
-    def __init__(self, host='192.168.149.1', port=9091):
-        self.host = host
-        self.port = port
-        self.client = None
+    def __init__(self, client:roslibpy.Ros):
+        self.client = client
         self.battery_sub = None
         self.power_mode_pub = None
         
@@ -18,10 +16,6 @@ class SimpleBatteryMonitor:
         self.current_mode = "NORMAL"
         
     def connect(self):
-        print(f"Connecting to ROS bridge at {self.host}:{self.port}...")
-        self.client = roslibpy.Ros(host=self.host, port=self.port)
-        self.client.run()
-        
         if self.client.is_connected:
             print("Connected to ROS bridge.")
             # Subscribe to battery voltage topic
