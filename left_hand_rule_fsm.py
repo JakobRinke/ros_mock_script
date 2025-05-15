@@ -5,6 +5,8 @@ from heiner_comunication.lidar import get_lidar_data_once
 from heiner_comunication.motor_control import move, rotate
 import math
 import time
+import sensor_manager
+
 
 # Parameter
 FORWARD_SPEED = 1.0  # Geschwindigkeit beim Vorwärtsfahren
@@ -15,7 +17,7 @@ TURN_DURATION = 0.5     # Dauer für kleine Drehung
 # Schwellwerte
 FRONT_ANGLE = 0
 FRONT_SPREAD = math.radians(30)  # +-30 Grad
-RIGHT_ANGLE = -math.pi / 2
+RIGHT_ANGLE = 3 * math.pi / 2
 RIGHT_SPREAD = math.radians(30)  # +-30 Grad
 DISTANCE_THRESHOLD = 0.24  # Mindestabstand in Meter
 RIGHT_OPEN_THRESHOLD = 1.5  # Mehr Abstand für rechts nötig
@@ -69,9 +71,11 @@ def main(client):
 # --- Einstiegspunkt ---
 if __name__ == "__main__":
     client = roslibpy.Ros(host='192.168.149.1', port=9091)
+
     try:
         client.run()
         if client.is_connected:
+            sensor_manager.start(client)
             main(client)
         else:
             print("❌ Verbindung zu ROSBridge fehlgeschlagen")
