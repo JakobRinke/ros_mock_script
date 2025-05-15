@@ -44,8 +44,8 @@ class SensorData:
         self.alcohol = alcohol
         self.ultrasonic = ultrasonic
         self.vibration = vibration
-        self.x = odometry.x
-        self.y = odometry.y
+        self.x = odometry.position.x
+        self.y = odometry.position.y
         self.battery_voltage = battery_voltage
         self.battery_percentage = battery_percentage
     
