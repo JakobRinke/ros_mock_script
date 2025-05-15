@@ -33,6 +33,7 @@ def start(client: roslibpy.Ros):
         print("Creating CSV file")
         f.write("Timestamp,Alcohol,MagneticField,Ultrasonic,Vibration,X,Y,Battery Voltage, Battery %\n")
         f.flush()
+    ultrasonic.ultrasonic_cal()
     CURRENT_THREAD.start()
 
 

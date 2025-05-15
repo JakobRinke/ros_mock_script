@@ -22,7 +22,6 @@ def ultrasonic():
     ECHO = 16
 
     try:
-        GPIO.setmode(GPIO.BOARD)
         GPIO.output(TRIG, GPIO.HIGH)
         time.sleep(0.00001)
         GPIO.output(TRIG, GPIO.LOW)
