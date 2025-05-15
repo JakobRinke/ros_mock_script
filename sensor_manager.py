@@ -6,9 +6,6 @@ from sensors import alcohol, magnetic, ultrasonic, vibration
 from threading import Lock
 import time
 import battery_voltage as battery_voltage
-import RPi.GPIO as GPIO
-
-GPIO.setmode(GPIO.BOARD)
 
 SENSOR_DATA_CSV_FOLDER = "/home/pi/hard_and_soft/hard-and-soft-2025-frontend/sensor_data/logs/"
 
