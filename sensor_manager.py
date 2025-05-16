@@ -131,23 +131,28 @@ def save_current_data_to_csv():
         f.flush()
     
 def get_senor_data_from_ros_once(client: roslibpy.Ros) -> SensorData:
-    t = topic_getter.get_topic_once(
-        client=client,
-        topic_name='/sensor_data',
-        message_type='std_msgs/String',
-        timeout=5
-    )
-    if t is None:
-        raise Exception("No data available")
-    data = json.loads(t["data"])
-    return SensorData(
-        magnetic_field=data['magnetic_field'],
-        alcohol=data['alcohol'],
-        ultrasonic=data['ultrasonic'],
-        vibration=data['vibration'],
-        battery_voltage=data['battery_voltage'],
-        battery_percentage=data['battery_percentage']
-    )
+    try:
+        t = topic_getter.get_topic_once(
+            client=client,
+            topic_name='/sensor_data',
+            message_type='std_msgs/String',
+            timeout=5
+        )
+        if t is None:
+            raise Exception("No data available")
+        data = json.loads(t["data"])
+        return SensorData(
+            magnetic_field=data['magnetic_field'],
+            alcohol=data['alcohol'],
+            ultrasonic=data['ultrasonic'],
+            vibration=data['vibration'],
+            battery_voltage=data['battery_voltage'],
+            battery_percentage=data['battery_percentage']
+        )
+    except Exception as e:
+        return SensorData(
+            0, 0, 400, 0, 0, 0
+        )
 
 def sensorloop(client: roslibpy.Ros):
     global CURRENT_MANAGER
@@ -155,40 +160,30 @@ def sensorloop(client: roslibpy.Ros):
         last_data = get_current_data()
         try:
             try:
-                print("Reading Magnet...")
-                time.sleep(0.1)
                 magnetic_field = magnetic.magnetic()
             except Exception as e:
                 print(f"Error in magnetic sensor: {e}")
                 magnetic_field = last_data.magnetic_field if last_data else 0.0
 
             try:
-                print("Reading Alcohol...")
-                time.sleep(0.1)
                 alcohol_v = alcohol.alcohol()
             except Exception as e:
                 print(f"Error in alcohol sensor: {e}")
                 alcohol_v = last_data.alcohol if last_data else 0.0
 
             try:
-                print("Reading Ultrasonic...")
-                time.sleep(0.1)
                 ultrasonic_v = ultrasonic.ultrasonic()
             except Exception as e:
                 print(f"Error in ultrasonic sensor: {e}")
                 ultrasonic_v = last_data.ultrasonic if last_data else 0.0
 
             try:
-                print("Reading Vibration...")
-                time.sleep(0.1)
                 vibration_v = vibration.vibration()
             except Exception as e:
                 print(f"Error in vibration sensor: {e}")
                 vibration_v = last_data.vibration if last_data else 0.0
 
             try:
-                print("Reading Battery Voltage...")
-                time.sleep(0.1)
                 BATTERY_VOLTAE_INST.initialize_battery_status()
                 voltage = BATTERY_VOLTAE_INST.current_voltage
                 percentage = BATTERY_VOLTAE_INST.current_percentage

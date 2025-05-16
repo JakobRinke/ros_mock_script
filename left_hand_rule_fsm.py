@@ -23,6 +23,8 @@ MAX_RIGHT_TURNS = 4
 
 AGRESSIVE_TURN_DURATION = 3.8  # Dauer für aggressive Linksdrehung
 
+B_LOGIC_LIMIT = 4
+
 def get_distance(lidar:LidarFrame, angle, spread):
     """Gibt den durchschnittlichen Abstand um einen bestimmten Winkel."""
     return lidar.get_value_around_angle(angle, spread)
@@ -126,43 +128,44 @@ def cautious_right_turn(client):
         if not is_right_clear(lidar):
             break
 
+def b_logic(client, lidar):
+    sensor_data = get_sensor_data(client)
+    # if i find a magnet field, i found out! Just move forward
+    if get_magnetic_field(sensor_data) > 0.5:
+        print("🔄 Magnetfeld erkannt, vorwärts fahren")
+        move_forward(client)
+        time.sleep(0.5)
+        return
+
+    print("Alcohol: ", get_alcohol(sensor_data))
+    # if i find alcohol, i wait 2 seconds and then move a bit backward, do a 180° turn and move forward a bit
+    if get_alcohol(sensor_data) > 0.5:
+        print("🚨 Alkohol erkannt, mache 180° Drehung")
+        move_backward(client)
+        time.sleep(2)
+        rotate(client=client, speed=ROTATE_SPEED, timeout=6)
+        move_forward_a_bit(client)
+        time.sleep(1.5)
+        return
+    
+    # use the ultrasonic data to check the data we are getting from the lidar. If there is a big difference (use a small lidar angle) 
+    # There is alcohol in front of tthe robot. just move forward by a bit
+    if 0.1 < get_front_ultrasonic_data(sensor_data) < 0.3 and (get_front_ultrasonic_data(sensor_data) < get_distance(lidar, FRONT_ANGLE, math.radians(10)) > 0.2):
+        print("🚨 Ultraschall/Lidar-Diskrepanz erkannt, fahre vorsichtig vorwärts")
+        move_forward_a_bit(client)
+        time.sleep(0.1)
+        return
+
 
 def wall_follower(client):
     """Verbesserter Right-Hand Wall Follower Algorithmus."""
     right_turn_counter = 0
-
+    blogic_counter = 0
     while True:
         lidar = get_lidar_data_once(client, True)
-
-        # Type B Logic Sensor data
-        sensor_data = get_sensor_data(client)
-
-        # if i find a magnet field, i found out! Just move forward
-        if get_magnetic_field(sensor_data) > 0.5:
-            print("🔄 Magnetfeld erkannt, vorwärts fahren")
-            move_forward(client)
-            time.sleep(0.5)
-            continue
-
-        print("Alcohol: ", get_alcohol(sensor_data))
-        # if i find alcohol, i wait 2 seconds and then move a bit backward, do a 180° turn and move forward a bit
-        if get_alcohol(sensor_data) > 0.5:
-            print("🚨 Alkohol erkannt, mache 180° Drehung")
-            move_backward(client)
-            time.sleep(2)
-            rotate(client=client, speed=ROTATE_SPEED, timeout=5)
-            move_forward_a_bit(client)
-            time.sleep(1.5)
-            continue
-        
-        # use the ultrasonic data to check the data we are getting from the lidar. If there is a big difference (use a small lidar angle) 
-        # There is alcohol in front of tthe robot. just move forward by a bit
-        if get_front_ultrasonic_data(sensor_data) < 0.2 and get_distance(lidar, FRONT_ANGLE, math.radians(10)) > 0.37:
-            print("🚨 Ultraschall/Lidar-Diskrepanz erkannt, fahre vorsichtig vorwärts")
-            move_forward_a_bit(client)
-            time.sleep(0.1)
-            continue
-
+        if blogic_counter < B_LOGIC_LIMIT:
+            b_logic(client, lidar)
+            blogic_counter += 1
 
 
         # A Logik für den Wall-Follower

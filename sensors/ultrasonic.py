@@ -25,11 +25,18 @@ def ultrasonic():
         time.sleep(0.00001)
         GPIO.output(TRIG, GPIO.LOW)
 
-        while GPIO.input(ECHO)==0:
-                pulse_start = time.time()
+        timeout = 0.1
+        start_time = time.time()
+        while GPIO.input(ECHO) == 0:
+            pulse_start = time.time()
+            if pulse_start - start_time > timeout:
+                return 400
 
-        while GPIO.input(ECHO)==1:
-                pulse_end = time.time()
+        start_time = time.time()
+        while GPIO.input(ECHO) == 1:
+            pulse_end = time.time()
+            if pulse_end - start_time > timeout:
+                return 400
 
         pulse_duration = pulse_end-pulse_start
 
