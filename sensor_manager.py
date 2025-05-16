@@ -111,7 +111,7 @@ class SensorManager:
         with self.lock:
             if self.data is None:
                 return ""
-            return f"{self.data.timestamp},{self.data.alcohol},{self.data.magnetic_field},{self.data.ultrasonic},{self.data.vibration},{self.data.x},{self.data.y},{self.data.battery_voltage},{self.data.battery_percentage}\n"
+            return f"{self.data.timestamp},{self.data.alcohol},{self.data.magnetic_field},{self.data.ultrasonic},{self.data.vibration},{0},{0},{self.data.battery_voltage},{self.data.battery_percentage}\n"
     
 
 
