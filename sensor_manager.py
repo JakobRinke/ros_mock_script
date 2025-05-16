@@ -155,30 +155,40 @@ def sensorloop(client: roslibpy.Ros):
         last_data = get_current_data()
         try:
             try:
+                print("Reading Magnet...")
+                time.sleep(0.1)
                 magnetic_field = magnetic.magnetic()
             except Exception as e:
                 print(f"Error in magnetic sensor: {e}")
                 magnetic_field = last_data.magnetic_field if last_data else 0.0
 
             try:
+                print("Reading Alcohol...")
+                time.sleep(0.1)
                 alcohol_v = alcohol.alcohol()
             except Exception as e:
                 print(f"Error in alcohol sensor: {e}")
                 alcohol_v = last_data.alcohol if last_data else 0.0
 
             try:
+                print("Reading Ultrasonic...")
+                time.sleep(0.1)
                 ultrasonic_v = ultrasonic.ultrasonic()
             except Exception as e:
                 print(f"Error in ultrasonic sensor: {e}")
                 ultrasonic_v = last_data.ultrasonic if last_data else 0.0
 
             try:
+                print("Reading Vibration...")
+                time.sleep(0.1)
                 vibration_v = vibration.vibration()
             except Exception as e:
                 print(f"Error in vibration sensor: {e}")
                 vibration_v = last_data.vibration if last_data else 0.0
 
             try:
+                print("Reading Battery Voltage...")
+                time.sleep(0.1)
                 BATTERY_VOLTAE_INST.initialize_battery_status()
                 voltage = BATTERY_VOLTAE_INST.current_voltage
                 percentage = BATTERY_VOLTAE_INST.current_percentage
