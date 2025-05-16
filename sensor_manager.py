@@ -200,8 +200,11 @@ def sensorloop(client: roslibpy.Ros):
                 print(f"Error in battery voltage: {e}")
                 voltage = last_data.battery_voltage if last_data else 0.0
                 percentage = last_data.battery_percentage if last_data else 0.0
-
-            CURRENT_MANAGER.update_data(SensorData(magnetic_field, alcohol_v, ultrasonic_v, vibration_v, odometry_v, voltage, percentage))
+            try:
+                CURRENT_MANAGER.update_data(SensorData(magnetic_field, alcohol_v, ultrasonic_v, vibration_v, odometry_v, voltage, percentage))
+            except Exception as e:
+                print(f"Error in updating sensor data: {e}")
+                print(e.with_traceback())
         except Exception as e:
             print(f"Error in threadloop: {e}")
         try:
