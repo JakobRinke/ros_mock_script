@@ -18,19 +18,23 @@ class OdometryData:
     def __repr__(self):
         return f"OdometryData(position={self.position}, orientation={self.orientation}, covariance={self.covariance})"
     
+result = {'message': None}
+def callback(message):
+    result['message'] = message
+    listener.unsubscribe()
 
-
-
-
+listener = roslibpy.Topic(None, '/odom_raw', 'nav_msgs/msg/Odometry')
+listener.subscribe(callback)
+timeout = 5
 def get_odometry_data_once(client:roslibpy.Ros) -> OdometryData:
-    return OdometryData(
-        topic_getter.get_topic_once(
-            client=client,
-            topic_name='/odom_raw',
-            message_type='nav_msgs/msg/Odometry',
-            timeout=5
-        )
-    )
+    start_time = time.time()
+    while result['message'] is None:
+        if time.time() - start_time > timeout:
+            listener.unsubscribe()
+            raise TimeoutError(f'Keine Nachricht von odometry innerhalb von {timeout} Sekunden empfangen.')
+        time.sleep(0.1)
+
+    return OdometryData(result['message'])
 
 
 # Hier ein Dictionary, das die Null-Odometrie darstellt

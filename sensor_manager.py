@@ -2,16 +2,20 @@ from threading import Thread
 import json
 import roslibpy
 from heiner_comunication.odometry import get_odometry_data_once, OdometryData, reset_odometry
-from sensors import alcohol, magnetic, ultrasonic, vibration
+
 from threading import Lock
 import time
 import battery_voltage as battery_voltage
 import traceback
-import RPi.GPIO as GPIO
+try:
+    import RPi.GPIO as GPIO
+    from sensors import alcohol, magnetic, ultrasonic, vibration
+    GPIO.setmode(GPIO.BOARD)
+except:
+    print("Running on non-Raspberry Pi environment, skipping GPIO setup.")
 import heiner_comunication.topic_getter as topic_getter
 
 
-GPIO.setmode(GPIO.BOARD)
 
 SENSOR_DATA_CSV_FOLDER = "/home/pi/hard_and_soft/hard-and-soft-2025-frontend/sensor_data/logs/"
 
@@ -62,8 +66,9 @@ class SensorData:
         self.alcohol = alcohol
         self.ultrasonic = ultrasonic
         self.vibration = vibration
-        self.x = odometry.position.x
-        self.y = odometry.position.y
+        if odometry is not None:
+            self.x = odometry.position.x
+            self.y = odometry.position.y
         self.battery_voltage = battery_voltage
         self.battery_percentage = battery_percentage
 
@@ -142,18 +147,13 @@ def get_senor_data_from_ros_once(client: roslibpy.Ros) -> SensorData:
     )
     if t is None:
         raise Exception("No data available")
-    data = json.loads(t)
+    data = json.loads(t["data"])
     return SensorData(
         magnetic_field=data['magnetic_field'],
         alcohol=data['alcohol'],
         ultrasonic=data['ultrasonic'],
         vibration=data['vibration'],
-        odometry=OdometryData(
-            position=OdometryData.Position(
-                x=data['x'],
-                y=data['y']
-            )
-        ),
+        odometry=None,
         battery_voltage=data['battery_voltage'],
         battery_percentage=data['battery_percentage']
     )
@@ -161,22 +161,53 @@ def get_senor_data_from_ros_once(client: roslibpy.Ros) -> SensorData:
 def sensorloop(client: roslibpy.Ros):
     global CURRENT_MANAGER
     while CURRENT_CLIENT is not None:
+        last_data = get_current_data()
         try:
-            magnetic_field = magnetic.magnetic()
-            alcohol_v = alcohol.alcohol()
-            ultrasonic_v = ultrasonic.ultrasonic()
-            vibration_v = vibration.vibration()
+            try:
+                magnetic_field = magnetic.magnetic()
+            except Exception as e:
+                print(f"Error in magnetic sensor: {e}")
+                magnetic_field = last_data.magnetic_field if last_data else 0.0
 
-            odometry_v = get_odometry_data_once(client)
+            try:
+                alcohol_v = alcohol.alcohol()
+            except Exception as e:
+                print(f"Error in alcohol sensor: {e}")
+                alcohol_v = last_data.alcohol if last_data else 0.0
 
-            BATTERY_VOLTAE_INST.initialize_battery_status()
-            voltage = BATTERY_VOLTAE_INST.current_voltage
-            percentage = BATTERY_VOLTAE_INST.current_percentage
+            try:
+                ultrasonic_v = ultrasonic.ultrasonic()
+            except Exception as e:
+                print(f"Error in ultrasonic sensor: {e}")
+                ultrasonic_v = last_data.ultrasonic if last_data else 0.0
+
+            try:
+                vibration_v = vibration.vibration()
+            except Exception as e:
+                print(f"Error in vibration sensor: {e}")
+                vibration_v = last_data.vibration if last_data else 0.0
+
+            try:
+                odometry_v = get_odometry_data_once(client)
+            except Exception as e:
+                print(f"Error in odometry: {e}")
+                odometry_v = last_data if last_data else None
+            try:
+                BATTERY_VOLTAE_INST.initialize_battery_status()
+                voltage = BATTERY_VOLTAE_INST.current_voltage
+                percentage = BATTERY_VOLTAE_INST.current_percentage
+            except Exception as e:
+                print(f"Error in battery voltage: {e}")
+                voltage = last_data.battery_voltage if last_data else 0.0
+                percentage = last_data.battery_percentage if last_data else 0.0
 
             CURRENT_MANAGER.update_data(SensorData(magnetic_field, alcohol_v, ultrasonic_v, vibration_v, odometry_v, voltage, percentage))
         except Exception as e:
             print(f"Error in threadloop: {e}")
-        time.sleep(0.1)
+        try:
+            time.sleep(0.1)
+        except:
+            pass
 
 
 def writeloop():
@@ -203,12 +234,12 @@ def write_into_ros(client: roslibpy.Ros):
             data_dict = data.to_dict()
             data_string = json.dumps(data_dict)
             top.publish(roslibpy.Message({"data": data_string}))
-            
+            time.sleep(0.1)
 
         except Exception as e:
             print(f"Error in write_into_ros: {e}")
             traceback.print_exc()
-        time.sleep(0.1)
+        
     try:
         top.unadvertise()
     except Exception as e:

@@ -3,7 +3,7 @@ import math
 import time
 from heiner_comunication.lidar import get_lidar_data_once, LidarFrame
 from heiner_comunication.motor_control import move, rotate
-
+import sensor_manager
 # Parameter
 FORWARD_SPEED = 1.0  # Geschwindigkeit beim Vorwärtsfahren
 ROTATE_SPEED = 0.6   # Geschwindigkeit beim Drehen
@@ -32,6 +32,34 @@ def is_front_clear(lidar):
     distance = get_distance(lidar, FRONT_ANGLE, FRONT_SPREAD)
     return distance > DISTANCE_THRESHOLD
 
+'''
+  {
+    "timestamp": self.timestamp,
+    "alcohol": self.alcohol,
+    "magnetic_field": self.magnetic_field,
+    "ultrasonic": self.ultrasonic,
+    "vibration": self.vibration,
+    "x": self.x,
+    "y": self.y,
+    "battery_voltage": self.battery_voltage,
+    "battery_percentage": self.battery_percentage
+    }    
+'''
+def get_sensor_data(client:roslibpy.Ros):
+    return sensor_manager.get_senor_data_from_ros_once(client)
+ 
+
+def get_front_ultrasonic_data(sensor_data:sensor_manager.SensorData):
+    """Gibt den Abstand des vorderen Ultraschallsensors zurück."""
+    return sensor_data.ultrasonic
+
+def get_magnetic_field(sensor_data:sensor_manager.SensorData):
+    """Gibt den Magnetfeldwert zurück."""
+    return sensor_data.magnetic_field
+
+def get_alcohol(sensor_data:sensor_manager.SensorData):
+    """Gibt den Alkoholwert zurück."""
+    return sensor_data.alcohol
 
 def is_right_clear(lidar):
     distance = get_distance(lidar, RIGHT_ANGLE, RIGHT_SPREAD)
@@ -108,6 +136,38 @@ def wall_follower(client):
     while True:
         lidar = get_lidar_data_once(client, True)
 
+        # Type B Logic Sensor data
+        sensor_data = get_sensor_data(client)
+
+        # if i find a magnet field, i found out! Just move forward
+        if get_magnetic_field(sensor_data) > 0.5:
+            print("🔄 Magnetfeld erkannt, vorwärts fahren")
+            move_forward(client)
+            time.sleep(0.5)
+            continue
+        
+        print("Alcohol: ", get_alcohol(sensor_data))
+        # if i find alcohol, i wait 2 seconds and then move a bit backward, do a 180° turn and move forward a bit
+        if get_alcohol(sensor_data) > 0.5:
+            print("🚨 Alkohol erkannt, mache 180° Drehung")
+            move_backward(client)
+            time.sleep(2)
+            rotate(client=client, speed=ROTATE_SPEED, timeout=5)
+            move_forward_a_bit(client)
+            time.sleep(1.5)
+            continue
+        
+        # use the ultrasonic data to check the data we are getting from the lidar. If there is a big difference (use a small lidar angle) 
+        # There is alcohol in front of tthe robot. just move forward by a bit
+        if get_front_ultrasonic_data(sensor_data) < 0.2 and get_distance(lidar, FRONT_ANGLE, math.radians(10)) > 0.37:
+            print("🚨 Ultraschall/Lidar-Diskrepanz erkannt, fahre vorsichtig vorwärts")
+            move_forward_a_bit(client)
+            time.sleep(0.1)
+            continue
+
+
+
+        # A Logik für den Wall-Follower
         if is_right_clear(lidar):
             right_turn_counter += 1
 
