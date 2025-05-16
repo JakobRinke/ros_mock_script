@@ -39,8 +39,6 @@ def is_front_clear(lidar):
     "magnetic_field": self.magnetic_field,
     "ultrasonic": self.ultrasonic,
     "vibration": self.vibration,
-    "x": self.x,
-    "y": self.y,
     "battery_voltage": self.battery_voltage,
     "battery_percentage": self.battery_percentage
     }    
@@ -145,7 +143,7 @@ def wall_follower(client):
             move_forward(client)
             time.sleep(0.5)
             continue
-        
+
         print("Alcohol: ", get_alcohol(sensor_data))
         # if i find alcohol, i wait 2 seconds and then move a bit backward, do a 180° turn and move forward a bit
         if get_alcohol(sensor_data) > 0.5:

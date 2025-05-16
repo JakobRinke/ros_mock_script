@@ -1,7 +1,7 @@
 from threading import Thread
 import json
 import roslibpy
-from heiner_comunication.odometry import get_odometry_data_once, OdometryData, reset_odometry
+# from heiner_comunication.odometry import get_odometry_data_once, OdometryData, reset_odometry
 
 from threading import Lock
 import time
@@ -31,7 +31,6 @@ def start(client: roslibpy.Ros):
     global CURRENT_THREAD, CURRENT_CLIENT, CURRENT_MANAGER, CURRENT_CSV_FILE, BATTERY_VOLTAE_INST, WRITE_FILE_THREAD, WRITE_ROS_THREAD
     # Calibrate the sensor
     ultrasonic.ultrasonic_cal()
-    reset_odometry(client)
     BATTERY_VOLTAE_INST = battery_voltage.SimpleBatteryMonitor(client)
     BATTERY_VOLTAE_INST.connect()
 
@@ -60,15 +59,12 @@ def start(client: roslibpy.Ros):
 
 
 class SensorData:
-    def __init__(self, magnetic_field:float, alcohol:float, ultrasonic:float, vibration:float, odometry:OdometryData, battery_voltage:float, battery_percentage:float):
+    def __init__(self, magnetic_field:float, alcohol:float, ultrasonic:float, vibration:float, battery_voltage:float, battery_percentage:float):
         self.timestamp: str = time.strftime("%Y-%m-%dT%H:%M:%S")
         self.magnetic_field = magnetic_field
         self.alcohol = alcohol
         self.ultrasonic = ultrasonic
         self.vibration = vibration
-        if odometry is not None:
-            self.x = odometry.position.x
-            self.y = odometry.position.y
         self.battery_voltage = battery_voltage
         self.battery_percentage = battery_percentage
 
@@ -80,8 +76,6 @@ class SensorData:
             f"  magnetic_field={self.magnetic_field},\n"
             f"  ultrasonic={self.ultrasonic},\n"
             f"  vibration={self.vibration},\n"
-            f"  x={self.x},\n"
-            f"  y={self.y},\n"
             f"  battery_voltage={self.battery_voltage},\n"
             f"  battery_percentage={self.battery_percentage}\n"
             f")"
@@ -94,8 +88,6 @@ class SensorData:
             "magnetic_field": self.magnetic_field,
             "ultrasonic": self.ultrasonic,
             "vibration": self.vibration,
-            "x": self.x,
-            "y": self.y,
             "battery_voltage": self.battery_voltage,
             "battery_percentage": self.battery_percentage
         }    
@@ -153,7 +145,6 @@ def get_senor_data_from_ros_once(client: roslibpy.Ros) -> SensorData:
         alcohol=data['alcohol'],
         ultrasonic=data['ultrasonic'],
         vibration=data['vibration'],
-        odometry=None,
         battery_voltage=data['battery_voltage'],
         battery_percentage=data['battery_percentage']
     )
@@ -188,11 +179,6 @@ def sensorloop(client: roslibpy.Ros):
                 vibration_v = last_data.vibration if last_data else 0.0
 
             try:
-                odometry_v = get_odometry_data_once(client)
-            except Exception as e:
-                print(f"Error in odometry: {e}")
-                odometry_v = last_data if last_data else None
-            try:
                 BATTERY_VOLTAE_INST.initialize_battery_status()
                 voltage = BATTERY_VOLTAE_INST.current_voltage
                 percentage = BATTERY_VOLTAE_INST.current_percentage
@@ -201,7 +187,7 @@ def sensorloop(client: roslibpy.Ros):
                 voltage = last_data.battery_voltage if last_data else 0.0
                 percentage = last_data.battery_percentage if last_data else 0.0
             try:
-                CURRENT_MANAGER.update_data(SensorData(magnetic_field, alcohol_v, ultrasonic_v, vibration_v, odometry_v, voltage, percentage))
+                CURRENT_MANAGER.update_data(SensorData(magnetic_field, alcohol_v, ultrasonic_v, vibration_v, voltage, percentage))
             except Exception as e:
                 print(f"Error in updating sensor data: {e}")
                 print(e.with_traceback())
